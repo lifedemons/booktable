@@ -31,11 +31,11 @@
     <item name="android:background">@android:color/background_light</item>
   </style>
 
-  <style name="AppTheme.TextViewTitle">
-    <item name="android:layout_width">match_parent</item>
-    <item name="android:layout_height">wrap_content</item>
-    <item name="android:layout_marginTop">@dimen/header_margin</item>
-    <item name="android:textStyle">bold</item>
+  <style name="AppTheme.TextViewPrimary">
+    <item name="android:ellipsize">end</item>
+    <item name="android:gravity">center_vertical</item>
+    <item name="android:lines">1</item>
+    <item name="android:textSize">@dimen/list_view_row_text_size</item>
   </style>
 
 </resources>

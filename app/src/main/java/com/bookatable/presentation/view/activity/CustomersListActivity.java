@@ -45,14 +45,11 @@ public class CustomersListActivity extends DiAppCompatActivity implements Custom
   private CheckBox mSortMenuCheckBox;
 
   private CustomerAdapter mCustomersListAdapter;
-  private CustomerAdapter.OnItemClickListener onItemClickListener =
-      new CustomerAdapter.OnItemClickListener() {
-        @Override public void onItemClicked(CustomerModel customerModel) {
-          if (CustomersListActivity.this.mCustomersListPresenter != null && customerModel != null) {
-            CustomersListActivity.this.mCustomersListPresenter.onCustomerClicked(customerModel);
-          }
-        }
-      };
+  private CustomerAdapter.OnItemClickListener onItemClickListener = customerModel -> {
+    if (CustomersListActivity.this.mCustomersListPresenter != null && customerModel != null) {
+      CustomersListActivity.this.mCustomersListPresenter.onCustomerClicked(customerModel);
+    }
+  };
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
