@@ -8,15 +8,16 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 /**
- * This is Data Layer model, which holds info about Json and Database related fields
+ * This is Data Layer model, which holds info about Json and Database related fields about customers
  */
-@Accessors(prefix = "m") @DatabaseTable(tableName = "customers") public class CustomerEntity {
+@Getter @Setter
+@Accessors(prefix = "m") @DatabaseTable(tableName = "customers") public class Customer {
 
-  @SerializedName(Fields.ID) @Getter @Setter @DatabaseField(id = true, columnName = Fields.ID)
+  @SerializedName(Fields.ID) @DatabaseField(id = true, columnName = Fields.ID)
   private int mId;
-  @SerializedName(Fields.FIRST_NAME) @Getter @Setter @DatabaseField(columnName = Fields.FIRST_NAME)
+  @SerializedName(Fields.FIRST_NAME) @DatabaseField(columnName = Fields.FIRST_NAME)
   private String mFirstName;
-  @SerializedName(Fields.LAST_NAME) @Getter @Setter @DatabaseField(columnName = Fields.LAST_NAME)
+  @SerializedName(Fields.LAST_NAME) @DatabaseField(columnName = Fields.LAST_NAME)
   private String mLastName;
 
   public interface Fields {

@@ -2,8 +2,7 @@ package com.bookatable.domain.usecases;
 
 import com.bookatable.data.datasource.CustomerEntityDataSource;
 import com.bookatable.data.di.RxModule;
-import com.bookatable.domain.model.Customer;
-import com.bookatable.domain.mapper.customer.CustomerEntityToCustomer;
+import com.bookatable.data.entity.Customer;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -15,19 +14,17 @@ import rx.Single;
  */
 public class GetCustomersList extends UseCase<List<Customer>> {
 
-  private final CustomerEntityToCustomer mCustomerTransformer;
   private CustomerEntityDataSource mCustomerEntityDataSource;
 
   @Inject public GetCustomersList(@Named(RxModule.COMPUTATION) Scheduler executionScheduler,
       @Named(RxModule.MAIN_THREAD) Scheduler observingScheduler,
       CustomerEntityDataSource customerEntityDataSource) {
     super(executionScheduler, observingScheduler);
-    mCustomerTransformer = new CustomerEntityToCustomer();
     mCustomerEntityDataSource = customerEntityDataSource;
   }
 
   @Override protected Single<List<Customer>> call() {
-    return mCustomerEntityDataSource.customers().map(mCustomerTransformer::transform);
+    return mCustomerEntityDataSource.customers();
   }
 }
 

@@ -1,8 +1,8 @@
 package com.bookatable.data.datasource;
 
-import com.bookatable.data.datasource.datastore.DatabaseCustomerEntityStore;
-import com.bookatable.data.datasource.datastore.ServerCustomerEntityStore;
-import com.bookatable.data.entity.CustomerEntity;
+import com.bookatable.data.datasource.datastore.customer.DatabaseCustomerEntityStore;
+import com.bookatable.data.datasource.datastore.customer.ServerCustomerEntityStore;
+import com.bookatable.data.entity.Customer;
 import com.bookatable.domain.datasource.CustomerDataSource;
 import java.util.List;
 import javax.inject.Inject;
@@ -12,8 +12,8 @@ import static rx.Single.just;
 
 public class CustomerEntityDataSource implements CustomerDataSource {
 
-  private DatabaseCustomerEntityStore mDatabaseCustomerEntityStore;
-  private ServerCustomerEntityStore mServerCustomerEntityStore;
+  private final DatabaseCustomerEntityStore mDatabaseCustomerEntityStore;
+  private final ServerCustomerEntityStore mServerCustomerEntityStore;
 
   @Inject public CustomerEntityDataSource(DatabaseCustomerEntityStore databaseCustomerEntityStore,
       ServerCustomerEntityStore serverCustomerEntityStore) {
@@ -21,11 +21,11 @@ public class CustomerEntityDataSource implements CustomerDataSource {
     mServerCustomerEntityStore = serverCustomerEntityStore;
   }
 
-  @Override public Single<List<CustomerEntity>> customers() {
+  @Override public Single<List<Customer>> customers() {
     return queryDatabaseForAll();
   }
 
-  private Single<List<CustomerEntity>> queryDatabaseForAll() {
+  private Single<List<Customer>> queryDatabaseForAll() {
     return mDatabaseCustomerEntityStore.queryForAll().flatMap(customerEntities -> {
       if (customerEntities.size() != 0) {
         return just(customerEntities);
@@ -34,17 +34,17 @@ public class CustomerEntityDataSource implements CustomerDataSource {
     });
   }
 
-  private Single<List<CustomerEntity>> loadFromServer() {
+  private Single<List<Customer>> loadFromServer() {
     return mServerCustomerEntityStore.customerList()
         .flatMap(loadedCustomerEntities -> mDatabaseCustomerEntityStore.
             saveAll(loadedCustomerEntities).andThen(just(loadedCustomerEntities)));
   }
 
-  @Override public Single<List<CustomerEntity>> searchCustomersByName(String name) {
+  @Override public Single<List<Customer>> searchCustomersByName(String name) {
     return mDatabaseCustomerEntityStore.queryForTitle(name);
   }
 
-  @Override public Single<CustomerEntity> customer(int customerId) {
+  @Override public Single<Customer> customer(int customerId) {
     return mDatabaseCustomerEntityStore.queryForId(customerId);
   }
 }

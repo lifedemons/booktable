@@ -1,7 +1,6 @@
 package com.bookatable.domain.datasource;
 
-import com.bookatable.data.entity.CustomerEntity;
-import com.bookatable.domain.model.Customer;
+import com.bookatable.data.entity.Customer;
 import java.util.List;
 import rx.Single;
 
@@ -12,22 +11,22 @@ import rx.Single;
  */
 public interface CustomerDataSource {
   /**
-   * Get an {@link rx.Observable} which will emit a List of {@link CustomerEntity}.
+   * Get an {@link rx.Observable} which will emit a List of {@link Customer}.
    */
-  Single<List<CustomerEntity>> customers();
+  Single<List<Customer>> customers();
 
   /**
-   * Get an {@link rx.Observable} which will emit a List of {@link CustomerEntity},
-   * whom titles match searched name.
+   * Get an {@link rx.Observable} which will emit a List of {@link Customer},
+   * whom first or last names match searched name.
    *
    * @param name The customers' Title used to retrieve customer data.
    */
-  Single<List<CustomerEntity>> searchCustomersByName(String name);
+  Single<List<Customer>> searchCustomersByName(String name);
 
   /**
-   * Get an {@link rx.Observable} which will emit a {@link CustomerEntity}.
+   * Get an {@link rx.Observable} which will emit a {@link Customer}.
    *
    * @param customerId The customer id used to retrieve customer data.
    */
-  Single<CustomerEntity> customer(final int customerId);
+  Single<Customer> customer(final int customerId);
 }

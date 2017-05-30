@@ -1,11 +1,9 @@
 package com.bookatable.presentation.presenter;
 
 import android.support.annotation.NonNull;
-import com.bookatable.domain.model.Customer;
+import com.bookatable.data.entity.Customer;
 import com.bookatable.domain.usecases.GetCustomer;
 import com.bookatable.domain.usecases.SimpleSubscriber;
-import com.bookatable.presentation.mapper.customer.CustomerToCustomerModel;
-import com.bookatable.presentation.model.CustomerModel;
 import com.bookatable.presentation.view.CustomerDetailsView;
 import javax.inject.Inject;
 
@@ -16,7 +14,7 @@ import javax.inject.Inject;
 public class CustomerDetailsPresenter {
 
   private final GetCustomer mGetCustomerUseCase;
-  private final CustomerToCustomerModel mCustomerModelTransformer;
+
   /**
    * id used to retrieve customer details
    */
@@ -25,7 +23,6 @@ public class CustomerDetailsPresenter {
 
   @Inject public CustomerDetailsPresenter(GetCustomer getCustomerUseCase) {
     mGetCustomerUseCase = getCustomerUseCase;
-    mCustomerModelTransformer = new CustomerToCustomerModel();
   }
 
   public void setView(@NonNull CustomerDetailsView view) {
@@ -81,8 +78,7 @@ public class CustomerDetailsPresenter {
   }
 
   private void showCustomerDetailsInView(Customer customer) {
-    final CustomerModel customerModel = mCustomerModelTransformer.transform(customer);
-    mViewDetailsView.renderCustomer(customerModel);
+    mViewDetailsView.renderCustomer(customer);
   }
 
   private final class CustomerDetailsSubscriber extends SimpleSubscriber<Customer> {

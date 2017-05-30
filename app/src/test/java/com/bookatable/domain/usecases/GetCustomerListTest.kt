@@ -3,13 +3,12 @@
 package com.bookatable.domain.usecases
 
 import com.bookatable.data.datasource.CustomerEntityDataSource
-import com.bookatable.data.entity.CustomerEntity
-import com.bookatable.domain.model.Customer
+import com.bookatable.data.entity.Customer
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
 import org.junit.Before
 import org.junit.Test
-import rx.Observable.just
+import rx.Single.just
 import rx.Scheduler
 import rx.observers.TestSubscriber
 import java.util.*
@@ -38,12 +37,12 @@ class GetCustomerListTest {
         assertEquals(customers.size, mTestSubscriber.onNextEvents[0].size)
     }
 
-    private fun assumeDataSourceHasRequestedCustomers(customers: ArrayList<CustomerEntity>) {
-        whenever(mCustomerEntityDataSource.customers()).thenReturn(just<List<CustomerEntity>>(customers))
+    private fun assumeDataSourceHasRequestedCustomers(customers: ArrayList<Customer>) {
+        whenever(mCustomerEntityDataSource.customers()).thenReturn(just<List<Customer>>(customers))
     }
 
-    private fun createCustomersList() = ArrayList<CustomerEntity>().apply {
-        add(CustomerEntity())
+    private fun createCustomersList() = ArrayList<Customer>().apply {
+        add(Customer())
     }
 }
 

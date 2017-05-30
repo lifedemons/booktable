@@ -3,13 +3,12 @@
 package com.bookatable.domain.usecases
 
 import com.bookatable.data.datasource.CustomerEntityDataSource
-import com.bookatable.data.entity.CustomerEntity
-import com.bookatable.domain.model.Customer
+import com.bookatable.data.entity.Customer
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
 import org.junit.Before
 import org.junit.Test
-import rx.Observable.just
+import rx.Single.just
 import rx.Scheduler
 import rx.observers.TestSubscriber
 import java.util.*
@@ -43,12 +42,12 @@ class SearchByNameTest {
         assertEquals(customers.size, mTestSubscriber.onNextEvents[0].size)
     }
 
-    private fun assumeDataSourceHasSearchedContent(customers: ArrayList<CustomerEntity>) {
+    private fun assumeDataSourceHasSearchedContent(customers: ArrayList<Customer>) {
         whenever(mMockCustomerEntityDataSource.searchCustomersByName(FAKE_CUSTOMER_TITLE)).thenReturn(
-                just<List<CustomerEntity>>(customers))
+                just<List<Customer>>(customers))
     }
 
-    private fun createCustomersList() = ArrayList<CustomerEntity>().apply {
-        add(CustomerEntity().apply { firstName = FAKE_CUSTOMER_TITLE })
+    private fun createCustomersList() = ArrayList<Customer>().apply {
+        add(Customer().apply { firstName = FAKE_CUSTOMER_TITLE })
     }
 }

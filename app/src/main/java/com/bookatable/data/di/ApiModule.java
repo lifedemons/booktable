@@ -2,6 +2,7 @@ package com.bookatable.data.di;
 
 import com.bookatable.BuildConfig;
 import com.bookatable.data.network.CustomerRestService;
+import com.bookatable.data.network.TablesRestService;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
@@ -16,16 +17,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
   private static String API_BASE_URL = "https://s3-eu-west-1.amazonaws.com/";
 
   @Provides @Singleton CustomerRestService provideOrderRatingService(OkHttpClient httpClient) {
-    return create(httpClient);
+    return createRetrofit(httpClient).create(CustomerRestService.class);
   }
 
-  public static CustomerRestService create(OkHttpClient client) {
+  @Provides @Singleton TablesRestService provideTablesRestService(OkHttpClient httpClient) {
+    return createRetrofit(httpClient).create(TablesRestService.class);
+  }
+
+  public static Retrofit createRetrofit(OkHttpClient client) {
     return new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
         .baseUrl(API_BASE_URL)
         .client(client)
-        .build()
-        .create(CustomerRestService.class);
+        .build();
   }
 
   @Provides @Singleton OkHttpClient provideHttpClient() {

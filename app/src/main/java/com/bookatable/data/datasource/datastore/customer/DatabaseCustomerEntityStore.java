@@ -1,8 +1,8 @@
-package com.bookatable.data.datasource.datastore;
+package com.bookatable.data.datasource.datastore.customer;
 
 import android.util.Log;
 import com.bookatable.data.db.DatabaseManager;
-import com.bookatable.data.entity.CustomerEntity;
+import com.bookatable.data.entity.Customer;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.misc.TransactionManager;
 import com.j256.ormlite.stmt.PreparedQuery;
@@ -20,10 +20,10 @@ public class DatabaseCustomerEntityStore {
   private static final String LOG_TAG = DatabaseCustomerEntityStore.class.getSimpleName();
   private static final String PERCENT = "%";
 
-  private Dao<CustomerEntity, Integer> mCustomersDao;
+  private Dao<Customer, Integer> mCustomersDao;
 
   //Search prepared fields, for faster search
-  private PreparedQuery<CustomerEntity> mSearchByTitleQuery;
+  private PreparedQuery<Customer> mSearchByTitleQuery;
   private SelectArg mSearchByFirstNameQuerySelectArg;
   private SelectArg mSearchByLastNameQuerySelectArg;
 
@@ -34,24 +34,24 @@ public class DatabaseCustomerEntityStore {
 
   private void prepareSearchByTitleQuery() {
     try {
-      QueryBuilder<CustomerEntity, Integer> queryBuilder = mCustomersDao.queryBuilder();
+      QueryBuilder<Customer, Integer> queryBuilder = mCustomersDao.queryBuilder();
       mSearchByFirstNameQuerySelectArg = new SelectArg();
       mSearchByLastNameQuerySelectArg = new SelectArg();
       queryBuilder.where()
-          .like(CustomerEntity.Fields.FIRST_NAME, mSearchByFirstNameQuerySelectArg)
+          .like(Customer.Fields.FIRST_NAME, mSearchByFirstNameQuerySelectArg)
           .or()
-          .like(CustomerEntity.Fields.LAST_NAME, mSearchByLastNameQuerySelectArg);
+          .like(Customer.Fields.LAST_NAME, mSearchByLastNameQuerySelectArg);
       mSearchByTitleQuery = queryBuilder.prepare();
     } catch (SQLException e) {
       Log.wtf(LOG_TAG, "Preparing of SearchByTitleQuery failed", e);
     }
   }
 
-  public Single<List<CustomerEntity>> queryForAll() {
+  public Single<List<Customer>> queryForAll() {
     return Single.fromCallable(() -> mCustomersDao.queryForAll());
   }
 
-  public Completable saveAll(final Collection<CustomerEntity> entities) {
+  public Completable saveAll(final Collection<Customer> entities) {
     return Completable.fromEmitter(completableEmitter -> {
       try {
         saveAllSynchronous(entities);
@@ -62,20 +62,20 @@ public class DatabaseCustomerEntityStore {
     });
   }
 
-  public void saveAllSynchronous(final Collection<CustomerEntity> entities) throws SQLException {
+  private void saveAllSynchronous(final Collection<Customer> entities) throws SQLException {
     TransactionManager.callInTransaction(mCustomersDao.getConnectionSource(), () -> {
-      for (CustomerEntity customerEntity : entities) {
-        mCustomersDao.createOrUpdate(customerEntity);
+      for (Customer customer : entities) {
+        mCustomersDao.createOrUpdate(customer);
       }
       return null;
     });
   }
 
-  public Single<CustomerEntity> queryForId(int customerId) {
+  public Single<Customer> queryForId(int customerId) {
     return Single.fromCallable(() -> mCustomersDao.queryForId(customerId));
   }
 
-  public Single<List<CustomerEntity>> queryForTitle(String title) {
+  public Single<List<Customer>> queryForTitle(String title) {
     return Single.fromCallable(() -> {
       String value = PERCENT + title + PERCENT;
       mSearchByFirstNameQuerySelectArg.setValue(value);

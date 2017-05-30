@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.BindView;
 import com.bookatable.R;
-import com.bookatable.presentation.model.CustomerModel;
+import com.bookatable.data.entity.Customer;
 import com.bookatable.presentation.presenter.CustomerDetailsPresenter;
 import com.bookatable.presentation.view.CustomerDetailsView;
 import javax.inject.Inject;
@@ -121,7 +121,7 @@ public class CustomerDetailsActivity extends DiAppCompatActivity implements Cust
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
   }
 
-  @Override public void renderCustomer(CustomerModel customerModel) {
+  @Override public void renderCustomer(Customer customerModel) {
     if (customerModel != null) {
       mTitleTextView.setText(customerModel.getFirstName());
     }

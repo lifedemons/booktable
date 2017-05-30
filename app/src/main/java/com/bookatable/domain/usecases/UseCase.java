@@ -1,6 +1,5 @@
 package com.bookatable.domain.usecases;
 
-import rx.Observable;
 import rx.Scheduler;
 import rx.Single;
 import rx.Subscriber;

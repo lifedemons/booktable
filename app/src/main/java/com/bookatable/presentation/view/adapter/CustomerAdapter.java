@@ -10,31 +10,31 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bookatable.R;
-import com.bookatable.presentation.model.CustomerModel;
+import com.bookatable.data.entity.Customer;
 import java.util.Collection;
 import java.util.List;
 
 /**
- * Adapter that manages a collection of {@link CustomerModel}.
+ * Adapter that manages a collection of {@link Customer}.
  */
 public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder> {
 
   private static final String STRING_PREPARED_HIGHLIGHT_MARKUP = "<font color='red'>%s</font>";
   private final LayoutInflater mLayoutInflater;
   private final Context mContext;
-  private List<CustomerModel> mCustomerModelsList;
+  private List<Customer> mCustomersList;
   private OnItemClickListener mOnItemClickListener;
   //Highlighting
   private String mTextToHighlight;
 
-  public CustomerAdapter(Context context, Collection<CustomerModel> customerModelsCollection) {
+  public CustomerAdapter(Context context, Collection<Customer> customerModelsCollection) {
     validateCustomersCollection(customerModelsCollection);
     mContext = context;
     mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    mCustomerModelsList = (List<CustomerModel>) customerModelsCollection;
+    mCustomersList = (List<Customer>) customerModelsCollection;
   }
 
-  private void validateCustomersCollection(Collection<CustomerModel> customerModelsCollection) {
+  private void validateCustomersCollection(Collection<Customer> customerModelsCollection) {
     if (customerModelsCollection == null) {
       throw new IllegalArgumentException("The list cannot be null");
     }
@@ -45,7 +45,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
   }
 
   @Override public int getItemCount() {
-    return (mCustomerModelsList != null) ? mCustomerModelsList.size() : 0;
+    return (mCustomersList != null) ? mCustomersList.size() : 0;
   }
 
   @Override public CustomerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -56,7 +56,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
   }
 
   @Override public void onBindViewHolder(CustomerViewHolder holder, final int position) {
-    final CustomerModel customerModel = mCustomerModelsList.get(position);
+    final Customer customerModel = mCustomersList.get(position);
     setText(holder.mTextViewFirstName, customerModel.getFirstName());
     setText(holder.mTextViewLastName, customerModel.getLastName());
 
@@ -81,9 +81,9 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
     return position;
   }
 
-  public void setCustomersCollection(Collection<CustomerModel> customerModelsCollection) {
+  public void setCustomersCollection(Collection<Customer> customerModelsCollection) {
     validateCustomersCollection(customerModelsCollection);
-    mCustomerModelsList = (List<CustomerModel>) customerModelsCollection;
+    mCustomersList = (List<Customer>) customerModelsCollection;
     notifyDataSetChanged();
   }
 
@@ -92,7 +92,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
   }
 
   public interface OnItemClickListener {
-    void onItemClicked(CustomerModel customerModel);
+    void onItemClicked(Customer customerModel);
   }
 
   static class CustomerViewHolder extends RecyclerView.ViewHolder {

@@ -3,15 +3,14 @@
 package com.bookatable.domain.usecases
 
 import com.bookatable.data.datasource.CustomerEntityDataSource
-import com.bookatable.data.entity.CustomerEntity
-import com.bookatable.domain.model.Customer
+import com.bookatable.data.entity.Customer
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Matchers.anyInt
-import rx.Observable
 import rx.Scheduler
+import rx.Single.just
 import rx.observers.TestSubscriber
 import kotlin.test.assertEquals
 
@@ -43,12 +42,12 @@ class GetCustomerTest {
         assertEquals(FAKE_CUSTOMER_ID, mTestSubscriber.onNextEvents[0].id)
     }
 
-    private fun createCustomerEntity() = CustomerEntity().apply {
+    private fun createCustomerEntity() = Customer().apply {
         id = FAKE_CUSTOMER_ID
     }
 
-    private fun assumeDataSourceHasRequestedCustomer(customerEntity: CustomerEntity) {
+    private fun assumeDataSourceHasRequestedCustomer(customer: Customer) {
         whenever(mCustomerEntityDataSource.customer(anyInt())).thenReturn(
-                Observable.just(customerEntity))
+                just(customer))
     }
 }

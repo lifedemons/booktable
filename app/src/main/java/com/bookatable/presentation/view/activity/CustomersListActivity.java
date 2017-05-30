@@ -17,7 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 import butterknife.BindView;
 import com.bookatable.R;
-import com.bookatable.presentation.model.CustomerModel;
+import com.bookatable.data.entity.Customer;
 import com.bookatable.presentation.navigation.Navigator;
 import com.bookatable.presentation.presenter.CustomersListPresenter;
 import com.bookatable.presentation.view.CustomerListView;
@@ -173,13 +173,13 @@ public class CustomersListActivity extends DiAppCompatActivity implements Custom
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
   }
 
-  @Override public void renderCustomerList(Collection<CustomerModel> customerModelCollection) {
+  @Override public void renderCustomerList(Collection<Customer> customerModelCollection) {
     if (customerModelCollection != null) {
       this.mCustomersListAdapter.setCustomersCollection(customerModelCollection);
     }
   }
 
-  @Override public void viewCustomer(CustomerModel customerModel) {
+  @Override public void viewCustomer(Customer customerModel) {
     mNavigator.navigateToCustomerDetails(this, customerModel.getId());
   }
 

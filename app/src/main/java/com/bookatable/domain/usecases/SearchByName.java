@@ -2,8 +2,7 @@ package com.bookatable.domain.usecases;
 
 import com.bookatable.data.datasource.CustomerEntityDataSource;
 import com.bookatable.data.di.RxModule;
-import com.bookatable.domain.model.Customer;
-import com.bookatable.domain.mapper.customer.CustomerEntityToCustomer;
+import com.bookatable.data.entity.Customer;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -17,7 +16,6 @@ import rx.Single;
  */
 @Accessors(prefix = "m") public class SearchByName extends UseCase<List<Customer>> {
 
-  private final CustomerEntityToCustomer customerTransformer;
   @Setter private String mSearchedTitle;
   private CustomerEntityDataSource mCustomerEntityDataSource;
 
@@ -26,12 +24,10 @@ import rx.Single;
       CustomerEntityDataSource customerEntityDataSource) {
     super(executionScheduler, observingScheduler);
     mCustomerEntityDataSource = customerEntityDataSource;
-    customerTransformer = new CustomerEntityToCustomer();
   }
 
   @Override protected Single<List<Customer>> call() {
-    return this.mCustomerEntityDataSource.searchCustomersByName(mSearchedTitle)
-        .map(customerTransformer::transform);
+    return this.mCustomerEntityDataSource.searchCustomersByName(mSearchedTitle);
   }
 }
 

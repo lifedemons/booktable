@@ -2,9 +2,9 @@
 
 package com.bookatable.data.datasource
 
-import com.bookatable.data.datasource.datastore.DatabaseCustomerEntityStore
-import com.bookatable.data.datasource.datastore.ServerCustomerEntityStore
-import com.bookatable.data.entity.CustomerEntity
+import com.bookatable.data.datasource.datastore.customer.DatabaseCustomerEntityStore
+import com.bookatable.data.datasource.datastore.customer.ServerCustomerEntityStore
+import com.bookatable.data.entity.Customer
 import com.bookatable.domain.usecases.SimpleSubscriber
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
@@ -12,10 +12,10 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyZeroInteractions
-import rx.Observable.just
+import rx.Single.just
 import java.util.*
 
-class CustomerEntityDataSourceTest {
+class CustomerDataSourceTest {
 
     private val mDatabaseCustomerEntityStore: DatabaseCustomerEntityStore = mock()
     private val mServerCustomerEntityStore: ServerCustomerEntityStore = mock()
@@ -36,7 +36,7 @@ class CustomerEntityDataSourceTest {
         assumeDatabaseIsEmpty()
         assumeServerHasRequestedContent(customersList)
 
-        mCustomerEntityDataSource.customers().subscribe(SimpleSubscriber<List<CustomerEntity>>())
+        mCustomerEntityDataSource.customers().subscribe(SimpleSubscriber<List<Customer>>())
 
         verify(mDatabaseCustomerEntityStore).queryForAll()
     }
@@ -47,7 +47,7 @@ class CustomerEntityDataSourceTest {
         assumeDatabaseIsEmpty()
         assumeServerHasRequestedContent(customersList)
 
-        mCustomerEntityDataSource.customers().subscribe(SimpleSubscriber<List<CustomerEntity>>())
+        mCustomerEntityDataSource.customers().subscribe(SimpleSubscriber<List<Customer>>())
 
         verify(mServerCustomerEntityStore).customerList()
     }
@@ -58,22 +58,22 @@ class CustomerEntityDataSourceTest {
         assumeDatabaseIsEmpty()
         assumeServerHasRequestedContent(customersList)
 
-        mCustomerEntityDataSource.customers().subscribe(SimpleSubscriber<List<CustomerEntity>>())
+        mCustomerEntityDataSource.customers().subscribe(SimpleSubscriber<List<Customer>>())
 
         verify(mDatabaseCustomerEntityStore).saveAll(customersList)
     }
 
-    private fun createCustomersList() = ArrayList<CustomerEntity>().apply {
-        add(CustomerEntity())
+    private fun createCustomersList() = ArrayList<Customer>().apply {
+        add(Customer())
     }
 
     private fun assumeDatabaseIsEmpty() {
         whenever(mDatabaseCustomerEntityStore.queryForAll()).thenReturn(
-                just<List<CustomerEntity>>(ArrayList<CustomerEntity>()))
+                just<List<Customer>>(ArrayList<Customer>()))
     }
 
-    private fun assumeServerHasRequestedContent(customersList: List<CustomerEntity>) {
-        whenever(mServerCustomerEntityStore.customerList()).thenReturn(just<List<CustomerEntity>>(customersList))
+    private fun assumeServerHasRequestedContent(customersList: List<Customer>) {
+        whenever(mServerCustomerEntityStore.customerList()).thenReturn(just<List<Customer>>(customersList))
     }
 
     @Test fun `should not query server on getting customers if database has them`() {
@@ -87,12 +87,12 @@ class CustomerEntityDataSourceTest {
         verifyZeroInteractions(mServerCustomerEntityStore)
     }
 
-    private fun assumeDatabaseHasRequestesContent(customerEntities: List<CustomerEntity>) {
-        whenever(mDatabaseCustomerEntityStore.queryForAll()).thenReturn(just<List<CustomerEntity>>(customerEntities))
+    private fun assumeDatabaseHasRequestesContent(customers: List<Customer>) {
+        whenever(mDatabaseCustomerEntityStore.queryForAll()).thenReturn(just<List<Customer>>(customers))
     }
 
     @Test fun `should query only database on getting particular customer`() {
-        val customerEntity = CustomerEntity()
+        val customerEntity = Customer()
         whenever(mDatabaseCustomerEntityStore.queryForId(FAKE_CUSTOMER_ID)).thenReturn(
                 just(customerEntity))
 

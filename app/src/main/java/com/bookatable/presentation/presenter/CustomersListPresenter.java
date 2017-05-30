@@ -1,14 +1,11 @@
 package com.bookatable.presentation.presenter;
 
 import android.support.annotation.NonNull;
-import com.bookatable.domain.model.Customer;
+import com.bookatable.data.entity.Customer;
 import com.bookatable.domain.usecases.GetCustomersList;
 import com.bookatable.domain.usecases.SearchByName;
 import com.bookatable.domain.usecases.SimpleSubscriber;
-import com.bookatable.presentation.mapper.customer.CustomerToCustomerModel;
-import com.bookatable.presentation.model.CustomerModel;
 import com.bookatable.presentation.view.CustomerListView;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -24,10 +21,8 @@ public class CustomersListPresenter {
   private final GetCustomersList mGetCustomerListUseCase;
   private final SearchByName mSearchByNameUseCase;
   private CustomerListView mViewList;
-  //Transformers
-  private CustomerToCustomerModel mCustomerModelTransformer;
 
-  private AlphabetCustomerModelTitleComparator mModelTitleComparator =
+  private AlphabetCustomerModelTitleComparator mModelFirstNameComparator =
       new AlphabetCustomerModelTitleComparator(true);
   private String mSearchedTitle;
 
@@ -36,12 +31,6 @@ public class CustomersListPresenter {
 
     mGetCustomerListUseCase = getCustomerListUseCase;
     mSearchByNameUseCase = searchByNameUseCase;
-
-    createTransformers();
-  }
-
-  private void createTransformers() {
-    mCustomerModelTransformer = new CustomerToCustomerModel();
   }
 
   public void setView(@NonNull CustomerListView view) {
@@ -81,7 +70,7 @@ public class CustomersListPresenter {
   }
 
   public void sort(boolean ascending) {
-    mModelTitleComparator = new AlphabetCustomerModelTitleComparator(ascending);
+    mModelFirstNameComparator = new AlphabetCustomerModelTitleComparator(ascending);
 
     if (mSearchedTitle == null || mSearchedTitle.isEmpty()) {
       loadCustomerList();
@@ -105,8 +94,8 @@ public class CustomersListPresenter {
     mViewList.highlightTextInList(title);
   }
 
-  public void onCustomerClicked(CustomerModel customerModel) {
-    mViewList.viewCustomer(customerModel);
+  public void onCustomerClicked(Customer customer) {
+    mViewList.viewCustomer(customer);
   }
 
   private void hideViewLoading() {
@@ -124,12 +113,9 @@ public class CustomersListPresenter {
   }
 
   private void showCustomerListInView(List<Customer> customerList) {
-    final List<CustomerModel> customerModelsList =
-        new ArrayList<>(mCustomerModelTransformer.transform(customerList));
+    Collections.sort(customerList, mModelFirstNameComparator);
 
-    Collections.sort(customerModelsList, mModelTitleComparator);
-
-    mViewList.renderCustomerList(customerModelsList);
+    mViewList.renderCustomerList(customerList);
   }
 
   private final class CustomerListSubscriber extends SimpleSubscriber<List<Customer>> {
@@ -149,14 +135,14 @@ public class CustomersListPresenter {
     }
   }
 
-  private class AlphabetCustomerModelTitleComparator implements Comparator<CustomerModel> {
+  private class AlphabetCustomerModelTitleComparator implements Comparator<Customer> {
     private boolean mIsAscending;
 
     AlphabetCustomerModelTitleComparator(boolean isAscending) {
       mIsAscending = isAscending;
     }
 
-    @Override public int compare(@NonNull CustomerModel lhs, @NonNull CustomerModel rhs) {
+    @Override public int compare(@NonNull Customer lhs, @NonNull Customer rhs) {
       return lhs.getFirstName().compareToIgnoreCase(rhs.getFirstName()) * (mIsAscending ? 1 : -1);
     }
   }

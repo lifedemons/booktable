@@ -1,6 +1,6 @@
-package com.bookatable.data.datasource.datastore;
+package com.bookatable.data.datasource.datastore.customer;
 
-import com.bookatable.data.entity.CustomerEntity;
+import com.bookatable.data.entity.Customer;
 import com.bookatable.data.network.CustomerRestService;
 import java.util.List;
 import javax.inject.Inject;
@@ -14,7 +14,7 @@ public class ServerCustomerEntityStore {
     mService = service;
   }
 
-  public Single<List<CustomerEntity>> customerList() {
+  public Single<List<Customer>> customerList() {
     return mService.getCustomers().toSingle();
   }
 }
