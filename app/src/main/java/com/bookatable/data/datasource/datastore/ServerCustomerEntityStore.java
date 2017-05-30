@@ -4,7 +4,7 @@ import com.bookatable.data.entity.CustomerEntity;
 import com.bookatable.data.network.CustomerRestService;
 import java.util.List;
 import javax.inject.Inject;
-import rx.Observable;
+import rx.Single;
 
 public class ServerCustomerEntityStore {
 
@@ -14,7 +14,7 @@ public class ServerCustomerEntityStore {
     mService = service;
   }
 
-  public Observable<List<CustomerEntity>> customerEntityList() {
-    return mService.getCustomers();
+  public Single<List<CustomerEntity>> customerList() {
+    return mService.getCustomers().toSingle();
   }
 }

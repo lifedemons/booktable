@@ -49,7 +49,7 @@ class CustomerEntityDataSourceTest {
 
         mCustomerEntityDataSource.customers().subscribe(SimpleSubscriber<List<CustomerEntity>>())
 
-        verify(mServerCustomerEntityStore).customerEntityList()
+        verify(mServerCustomerEntityStore).customerList()
     }
 
     @Test fun `should save retrieved customers from server on getting customers`() {
@@ -73,7 +73,7 @@ class CustomerEntityDataSourceTest {
     }
 
     private fun assumeServerHasRequestedContent(customersList: List<CustomerEntity>) {
-        whenever(mServerCustomerEntityStore.customerEntityList()).thenReturn(just<List<CustomerEntity>>(customersList))
+        whenever(mServerCustomerEntityStore.customerList()).thenReturn(just<List<CustomerEntity>>(customersList))
     }
 
     @Test fun `should not query server on getting customers if database has them`() {

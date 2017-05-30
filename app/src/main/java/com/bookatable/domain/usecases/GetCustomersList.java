@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import rx.Observable;
 import rx.Scheduler;
+import rx.Single;
 
 public class GetCustomersList extends UseCase<List<Customer>> {
 
@@ -23,7 +24,7 @@ public class GetCustomersList extends UseCase<List<Customer>> {
     mCustomerEntityDataSource = customerEntityDataSource;
   }
 
-  @Override protected Observable<List<Customer>> call() {
+  @Override protected Single<List<Customer>> call() {
     return mCustomerEntityDataSource.customers().map(mCustomerTransformer::transform);
   }
 }

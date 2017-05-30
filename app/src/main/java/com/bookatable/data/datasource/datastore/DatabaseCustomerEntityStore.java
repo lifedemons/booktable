@@ -12,8 +12,8 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 import javax.inject.Inject;
-import rx.Observable;
-import rx.Subscriber;
+import rx.Completable;
+import rx.Single;
 
 public class DatabaseCustomerEntityStore {
 
@@ -42,30 +42,17 @@ public class DatabaseCustomerEntityStore {
     }
   }
 
-  public Observable<List<CustomerEntity>> queryForAll() {
-    return Observable.create(new Observable.OnSubscribe<List<CustomerEntity>>() {
-      @Override public void call(Subscriber<? super List<CustomerEntity>> subscriber) {
-        try {
-          List<CustomerEntity> customers = mCustomersDao.queryForAll();
-          subscriber.onNext(customers);
-          subscriber.onCompleted();
-        } catch (SQLException e) {
-          subscriber.onError(e);
-        }
-      }
-    });
+  public Single<List<CustomerEntity>> queryForAll() {
+    return Single.fromCallable(() -> mCustomersDao.queryForAll());
   }
 
-  public Observable<Void> saveAll(final Collection<CustomerEntity> entities) {
-    return Observable.create(new Observable.OnSubscribe<Void>() {
-      @Override public void call(Subscriber<? super Void> subscriber) {
-        try {
-          saveAllSynchronous(entities);
-          subscriber.onNext(null);
-          subscriber.onCompleted();
-        } catch (SQLException e) {
-          subscriber.onError(e);
-        }
+  public Completable saveAll(final Collection<CustomerEntity> entities) {
+    return Completable.fromEmitter(completableEmitter -> {
+      try {
+        saveAllSynchronous(entities);
+        completableEmitter.onCompleted();
+      } catch (SQLException e) {
+        completableEmitter.onError(e);
       }
     });
   }
@@ -79,32 +66,14 @@ public class DatabaseCustomerEntityStore {
     });
   }
 
-  public Observable<CustomerEntity> queryForId(int customerId) {
-    return Observable.create(new Observable.OnSubscribe<CustomerEntity>() {
-      @Override public void call(Subscriber<? super CustomerEntity> subscriber) {
-        try {
-          CustomerEntity customer = mCustomersDao.queryForId(customerId);
-          subscriber.onNext(customer);
-          subscriber.onCompleted();
-        } catch (SQLException e) {
-          subscriber.onError(e);
-        }
-      }
-    });
+  public Single<CustomerEntity> queryForId(int customerId) {
+    return Single.fromCallable(() -> mCustomersDao.queryForId(customerId));
   }
 
-  public Observable<List<CustomerEntity>> queryForTitle(String title) {
-    return Observable.create(new Observable.OnSubscribe<List<CustomerEntity>>() {
-      @Override public void call(Subscriber<? super List<CustomerEntity>> subscriber) {
-        try {
-          mSearchByTitleQuerySelectArg.setValue(PERCENT + title + PERCENT);
-          List<CustomerEntity> customers = mCustomersDao.query(mSearchByTitleQuery);
-          subscriber.onNext(customers);
-          subscriber.onCompleted();
-        } catch (SQLException e) {
-          subscriber.onError(e);
-        }
-      }
+  public Single<List<CustomerEntity>> queryForTitle(String title) {
+    return Single.fromCallable(() -> {
+      mSearchByTitleQuerySelectArg.setValue(PERCENT + title + PERCENT);
+      return mCustomersDao.query(mSearchByTitleQuery);
     });
   }
 }

@@ -10,6 +10,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import rx.Observable;
 import rx.Scheduler;
+import rx.Single;
 
 @Accessors(prefix = "m") public class GetCustomer extends UseCase<Customer> {
 
@@ -25,7 +26,7 @@ import rx.Scheduler;
     mCustomerEntityDataSource = customerEntityDataSource;
   }
 
-  @Override protected Observable<Customer> call() {
+  @Override protected Single<Customer> call() {
     return this.mCustomerEntityDataSource.customer(mCustomerId)
         .map(mCustomerTransformer::transform);
   }

@@ -3,14 +3,14 @@ package com.bookatable.data.datasource;
 import com.bookatable.data.datasource.datastore.DatabaseCustomerEntityStore;
 import com.bookatable.data.datasource.datastore.ServerCustomerEntityStore;
 import com.bookatable.data.entity.CustomerEntity;
-import com.bookatable.domain.datasource.CustomerRepository;
+import com.bookatable.domain.datasource.CustomerDataSource;
 import java.util.List;
 import javax.inject.Inject;
-import rx.Observable;
-import rx.Observer;
-import rx.Subscriber;
+import rx.Single;
 
-public class CustomerEntityDataSource implements CustomerRepository {
+import static rx.Single.just;
+
+public class CustomerEntityDataSource implements CustomerDataSource {
 
   private DatabaseCustomerEntityStore mDatabaseCustomerEntityStore;
   private ServerCustomerEntityStore mServerCustomerEntityStore;
@@ -21,60 +21,30 @@ public class CustomerEntityDataSource implements CustomerRepository {
     mServerCustomerEntityStore = serverCustomerEntityStore;
   }
 
-  @Override public Observable<List<CustomerEntity>> customers() {
-    return Observable.create(new Observable.OnSubscribe<List<CustomerEntity>>() {
-      @Override public void call(Subscriber<? super List<CustomerEntity>> subscriber) {
-        queryDatabaseForAll(subscriber);
+  @Override public Single<List<CustomerEntity>> customers() {
+    return queryDatabaseForAll();
+  }
+
+  private Single<List<CustomerEntity>> queryDatabaseForAll() {
+    return mDatabaseCustomerEntityStore.queryForAll().flatMap(customerEntities -> {
+      if (customerEntities.size() != 0) {
+        return just(customerEntities);
       }
+      return loadFromServer();
     });
   }
 
-  private void queryDatabaseForAll(final Subscriber<? super List<CustomerEntity>> subscriber) {
-    mDatabaseCustomerEntityStore.queryForAll().subscribe(new Observer<List<CustomerEntity>>() {
-      @Override public void onCompleted() {
-
-      }
-
-      @Override public void onError(Throwable e) {
-        subscriber.onError(e);
-        fetchServerForAll(subscriber);
-      }
-
-      @Override public void onNext(List<CustomerEntity> customerEntities) {
-        if (customerEntities.size() != 0) {
-          subscriber.onNext(customerEntities);
-          subscriber.onCompleted();
-        } else {
-          fetchServerForAll(subscriber);
-        }
-      }
-    });
+  private Single<List<CustomerEntity>> loadFromServer() {
+    return mServerCustomerEntityStore.customerList()
+        .flatMap(loadedCustomerEntities -> mDatabaseCustomerEntityStore.
+            saveAll(loadedCustomerEntities).andThen(just(loadedCustomerEntities)));
   }
 
-  private void fetchServerForAll(Subscriber<? super List<CustomerEntity>> subscriber) {
-    mServerCustomerEntityStore.customerEntityList().subscribe(new Observer<List<CustomerEntity>>() {
-      @Override public void onCompleted() {
-        subscriber.onCompleted();
-      }
-
-      @Override public void onError(Throwable e) {
-        subscriber.onError(e);
-      }
-
-      @Override public void onNext(List<CustomerEntity> customerEntities) {
-        subscriber.onNext(customerEntities);
-        mDatabaseCustomerEntityStore.
-            saveAll(customerEntities).
-            subscribe();
-      }
-    });
-  }
-
-  @Override public Observable<List<CustomerEntity>> searchCustomersByName(String name) {
+  @Override public Single<List<CustomerEntity>> searchCustomersByName(String name) {
     return mDatabaseCustomerEntityStore.queryForTitle(name);
   }
 
-  @Override public Observable<CustomerEntity> customer(int customerId) {
+  @Override public Single<CustomerEntity> customer(int customerId) {
     return mDatabaseCustomerEntityStore.queryForId(customerId);
   }
 }

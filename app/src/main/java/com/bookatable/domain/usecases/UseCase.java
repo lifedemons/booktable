@@ -2,6 +2,7 @@ package com.bookatable.domain.usecases;
 
 import rx.Observable;
 import rx.Scheduler;
+import rx.Single;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.subscriptions.Subscriptions;
@@ -24,7 +25,7 @@ public abstract class UseCase<T> {
         .subscribe(UseCaseSubscriber);
   }
 
-  protected abstract Observable<T> call();
+  protected abstract Single<T> call();
 
   public void unsubscribe() {
     if (!subscription.isUnsubscribed()) {

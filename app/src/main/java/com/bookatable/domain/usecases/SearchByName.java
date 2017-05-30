@@ -11,6 +11,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import rx.Observable;
 import rx.Scheduler;
+import rx.Single;
 
 @Accessors(prefix = "m") public class SearchByName extends UseCase<List<Customer>> {
 
@@ -26,7 +27,7 @@ import rx.Scheduler;
     customerTransformer = new CustomerEntityToCustomer();
   }
 
-  @Override protected Observable<List<Customer>> call() {
+  @Override protected Single<List<Customer>> call() {
     return this.mCustomerEntityDataSource.searchCustomersByName(mSearchedTitle)
         .map(customerTransformer::transform);
   }
