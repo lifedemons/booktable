@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">CustomerViewer</string>
-    <string name="url">https://github.com/lifedemons/customerviewer</string>
+    <string name="app_name">Book A Table</string>
 
     <string name="activity_title_customer_list">Customers List</string>
     <string name="activity_title_customer_details">Customer Details</string>
