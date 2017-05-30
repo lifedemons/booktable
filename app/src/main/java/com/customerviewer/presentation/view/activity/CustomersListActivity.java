@@ -120,18 +120,6 @@ public class CustomersListActivity extends DiAppCompatActivity implements Custom
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        mCustomerListPresenter.resume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mCustomerListPresenter.pause();
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
         mCustomerListPresenter.destroy();

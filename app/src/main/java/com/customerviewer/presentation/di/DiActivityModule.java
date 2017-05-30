@@ -1,4 +1,4 @@
-package com.customerviewer.presentation.di.modules;
+package com.customerviewer.presentation.di;
 
 import com.customerviewer.presentation.view.activity.DiAppCompatActivity;
 import com.customerviewer.presentation.view.activity.CustomerDetailsActivity;

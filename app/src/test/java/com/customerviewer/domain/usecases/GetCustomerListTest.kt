@@ -5,7 +5,7 @@ package com.customerviewer.domain.usecases
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
 import com.customerviewer.data.entity.CustomerEntity
-import com.customerviewer.data.repository.CustomerEntityDataSource
+import com.customerviewer.data.datasource.CustomerEntityDataSource
 import com.customerviewer.domain.Customer
 import org.junit.Before
 import org.junit.Test

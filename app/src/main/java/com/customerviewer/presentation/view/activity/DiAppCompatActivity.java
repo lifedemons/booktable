@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import butterknife.ButterKnife;
 import com.customerviewer.presentation.CustomerViewerApplication;
-import com.customerviewer.presentation.di.modules.DiActivityModule;
+import com.customerviewer.presentation.di.DiActivityModule;
 
 public class DiAppCompatActivity extends AppCompatActivity {
 

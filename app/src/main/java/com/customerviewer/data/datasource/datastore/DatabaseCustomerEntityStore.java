@@ -1,4 +1,4 @@
-package com.customerviewer.data.repository.datastore;
+package com.customerviewer.data.datasource.datastore;
 
 import android.util.Log;
 

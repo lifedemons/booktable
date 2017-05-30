@@ -1,9 +1,9 @@
 package com.customerviewer.domain.usecases;
 
-import com.customerviewer.data.repository.CustomerEntityDataSource;
+import com.customerviewer.data.datasource.CustomerEntityDataSource;
 import com.customerviewer.domain.Customer;
 import com.customerviewer.domain.mapper.customer.CustomerEntityToCustomer;
-import com.customerviewer.presentation.di.modules.RxModule;
+import com.customerviewer.data.di.RxModule;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;

@@ -80,18 +80,6 @@ public class CustomerDetailsActivity extends DiAppCompatActivity implements Cust
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        this.mCustomerDetailsPresenter.resume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mCustomerDetailsPresenter.pause();
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
         mCustomerDetailsPresenter.destroy();

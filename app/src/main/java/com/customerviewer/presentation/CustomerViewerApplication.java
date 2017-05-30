@@ -1,7 +1,7 @@
 package com.customerviewer.presentation;
 
 import android.app.Application;
-import com.customerviewer.presentation.di.modules.AppModule;
+import com.customerviewer.presentation.di.AppModule;
 import dagger.ObjectGraph;
 
 public class CustomerViewerApplication extends Application {

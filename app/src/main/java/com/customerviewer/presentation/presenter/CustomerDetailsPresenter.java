@@ -11,10 +11,10 @@ import com.customerviewer.presentation.view.CustomerDetailsView;
 import javax.inject.Inject;
 
 /**
- * {@link Presenter} that controls communication between views and models of the presentation
+ * Presenter that controls communication between views and models of the presentation
  * layer.
  */
-public class CustomerDetailsPresenter extends SimplePresenter {
+public class CustomerDetailsPresenter {
 
     private final GetCustomerDetails mGetCustomerDetailsUseCase;
     private final CustomerToCustomerModel mCustomerModelTransformer;
@@ -34,7 +34,6 @@ public class CustomerDetailsPresenter extends SimplePresenter {
         mViewDetailsView = view;
     }
 
-    @Override
     public void destroy() {
         mGetCustomerDetailsUseCase.unsubscribe();
     }

@@ -1,4 +1,4 @@
-package com.customerviewer.presentation.di.modules;
+package com.customerviewer.data.di;
 
 import dagger.Module;
 import dagger.Provides;

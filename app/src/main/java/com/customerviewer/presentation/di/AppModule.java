@@ -1,7 +1,11 @@
-package com.customerviewer.presentation.di.modules;
+package com.customerviewer.presentation.di;
 
 import android.content.Context;
 import android.content.res.Resources;
+import com.customerviewer.data.di.ApiModule;
+import com.customerviewer.data.di.DataModule;
+import com.customerviewer.data.di.RxModule;
+import com.customerviewer.domain.di.UseCasesModule;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;

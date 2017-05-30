@@ -1,12 +1,12 @@
 @file:Suppress("IllegalIdentifier")
 
-package com.customerviewer.data.repository
+package com.customerviewer.data.datasource
 
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
 import com.customerviewer.data.entity.CustomerEntity
-import com.customerviewer.data.repository.datastore.DatabaseCustomerEntityStore
-import com.customerviewer.data.repository.datastore.ServerCustomerEntityStore
+import com.customerviewer.data.datasource.datastore.DatabaseCustomerEntityStore
+import com.customerviewer.data.datasource.datastore.ServerCustomerEntityStore
 import com.customerviewer.domain.usecases.SimpleSubscriber
 import org.junit.Before
 import org.junit.Test

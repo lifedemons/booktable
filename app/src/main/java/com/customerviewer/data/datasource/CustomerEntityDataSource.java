@@ -1,9 +1,9 @@
-package com.customerviewer.data.repository;
+package com.customerviewer.data.datasource;
 
 import com.customerviewer.data.entity.CustomerEntity;
-import com.customerviewer.data.repository.datastore.DatabaseCustomerEntityStore;
-import com.customerviewer.data.repository.datastore.ServerCustomerEntityStore;
-import com.customerviewer.domain.repository.CustomerRepository;
+import com.customerviewer.data.datasource.datastore.DatabaseCustomerEntityStore;
+import com.customerviewer.data.datasource.datastore.ServerCustomerEntityStore;
+import com.customerviewer.domain.datasource.CustomerRepository;
 
 import java.util.List;
 

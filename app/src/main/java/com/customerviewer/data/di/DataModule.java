@@ -1,7 +1,7 @@
-package com.customerviewer.presentation.di.modules;
+package com.customerviewer.data.di;
 
-import com.customerviewer.data.repository.CustomerEntityDataSource;
-import com.customerviewer.domain.repository.CustomerRepository;
+import com.customerviewer.data.datasource.CustomerEntityDataSource;
+import com.customerviewer.domain.datasource.CustomerRepository;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;

@@ -17,10 +17,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
- * {@link Presenter} that controls communication between views and models of the presentation
+ * Presenter that controls communication between views and models of the presentation
  * layer.
  */
-public class CustomerListPresenter extends SimplePresenter {
+public class CustomerListPresenter {
 
     private CustomerListView mViewList;
 
@@ -52,7 +52,7 @@ public class CustomerListPresenter extends SimplePresenter {
         mViewList = view;
     }
 
-    @Override public void destroy() {
+    public void destroy() {
         mGetCustomerListUseCase.unsubscribe();
     }
 

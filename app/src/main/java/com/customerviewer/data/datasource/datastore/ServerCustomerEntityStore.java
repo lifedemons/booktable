@@ -1,4 +1,4 @@
-package com.customerviewer.data.repository.datastore;
+package com.customerviewer.data.datasource.datastore;
 
 import com.customerviewer.data.entity.CustomerEntity;
 
