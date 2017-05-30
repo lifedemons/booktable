@@ -4,7 +4,7 @@ package com.bookatable.domain.usecases
 
 import com.bookatable.data.datasource.CustomerEntityDataSource
 import com.bookatable.data.entity.CustomerEntity
-import com.bookatable.domain.Customer
+import com.bookatable.domain.model.Customer
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
 import org.junit.Before

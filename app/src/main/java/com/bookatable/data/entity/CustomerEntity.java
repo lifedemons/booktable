@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+/**
+ * This is Data Layer model, which holds info about Json and Database related fields
+ */
 @Accessors(prefix = "m") @DatabaseTable(tableName = "customers") public class CustomerEntity {
 
   @SerializedName(Fields.ID) @Getter @Setter @DatabaseField(id = true, columnName = Fields.ID)

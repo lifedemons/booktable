@@ -1,13 +1,14 @@
 package com.bookatable.domain.datasource;
 
 import com.bookatable.data.entity.CustomerEntity;
-import com.bookatable.domain.Customer;
+import com.bookatable.domain.model.Customer;
 import java.util.List;
-import rx.Observable;
 import rx.Single;
 
 /**
- * Interface that represents a Repository for getting {@link Customer} related data.
+ * Interface that represents a DataSource for getting {@link Customer} related data.
+ * The implementation of this interface should hide/encapsulate details of the source of Data.
+ * Upper Layers of the App should not know about DB or Rest sources of data.
  */
 public interface CustomerDataSource {
   /**

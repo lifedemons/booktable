@@ -12,6 +12,9 @@ import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
+/**
+ * PageObject for Customer List View
+ */
 public class CustomerListPage extends PageObject<CustomersListActivity> {
 
   public CustomerListPage() {

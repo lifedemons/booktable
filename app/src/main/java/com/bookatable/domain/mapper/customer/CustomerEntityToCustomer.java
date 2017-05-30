@@ -1,7 +1,7 @@
 package com.bookatable.domain.mapper.customer;
 
 import com.bookatable.data.entity.CustomerEntity;
-import com.bookatable.domain.Customer;
+import com.bookatable.domain.model.Customer;
 import com.bookatable.domain.mapper.BaseLayerDataTransformer;
 
 public class CustomerEntityToCustomer extends BaseLayerDataTransformer<CustomerEntity, Customer> {

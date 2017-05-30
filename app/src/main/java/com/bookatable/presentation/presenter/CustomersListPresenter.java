@@ -1,7 +1,7 @@
 package com.bookatable.presentation.presenter;
 
 import android.support.annotation.NonNull;
-import com.bookatable.domain.Customer;
+import com.bookatable.domain.model.Customer;
 import com.bookatable.domain.usecases.GetCustomersList;
 import com.bookatable.domain.usecases.SearchByName;
 import com.bookatable.domain.usecases.SimpleSubscriber;
@@ -15,8 +15,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
- * Presenter that controls communication between views and models of the presentation
- * layer.
+ * Presenter as in Model-View-Presenter pattern.
+ * Presents List of Customers.
  */
 public class CustomersListPresenter {
 

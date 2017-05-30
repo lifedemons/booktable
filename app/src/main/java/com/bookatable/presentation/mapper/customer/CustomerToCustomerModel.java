@@ -1,6 +1,6 @@
 package com.bookatable.presentation.mapper.customer;
 
-import com.bookatable.domain.Customer;
+import com.bookatable.domain.model.Customer;
 import com.bookatable.domain.mapper.BaseLayerDataTransformer;
 import com.bookatable.presentation.model.CustomerModel;
 
