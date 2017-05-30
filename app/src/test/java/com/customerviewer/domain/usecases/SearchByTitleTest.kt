@@ -43,11 +43,11 @@ class SearchByTitleTest {
     }
 
     private fun assumeDataSourceHasSearchedContent(customers: ArrayList<CustomerEntity>) {
-        whenever(mMockCustomerEntityDataSource.searchCustomersByTitle(FAKE_CUSTOMER_TITLE)).thenReturn(
+        whenever(mMockCustomerEntityDataSource.searchCustomersByName(FAKE_CUSTOMER_TITLE)).thenReturn(
                 just<List<CustomerEntity>>(customers))
     }
 
     private fun createCustomersList() = ArrayList<CustomerEntity>().apply {
-        add(CustomerEntity().apply { title = FAKE_CUSTOMER_TITLE })
+        add(CustomerEntity().apply { firstName = FAKE_CUSTOMER_TITLE })
     }
 }

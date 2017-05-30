@@ -10,9 +10,8 @@ public class CustomerToCustomerModel extends BaseLayerDataTransformer<Customer, 
         CustomerModel transformed = new CustomerModel();
 
         transformed.setId(from.getId());
-        transformed.setTitle(from.getTitle());
-        transformed.setUrl(from.getUrl());
-        transformed.setThumbnailUrl(from.getThumbnailUrl());
+        transformed.setFirstName(from.getFirstName());
+        transformed.setLastName(from.getLastName());
 
         return transformed;
     }

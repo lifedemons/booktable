@@ -34,8 +34,8 @@ public class CustomerEntityDataSource implements CustomerRepository {
     }
 
     @Override
-    public Observable<List<CustomerEntity>> searchCustomersByTitle(String title) {
-        return mDatabaseCustomerEntityStore.queryForTitle(title);
+    public Observable<List<CustomerEntity>> searchCustomersByName(String name) {
+        return mDatabaseCustomerEntityStore.queryForTitle(name);
     }
 
     @Override

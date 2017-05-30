@@ -18,6 +18,6 @@ public class ServerCustomerEntityStore {
     }
 
     public Observable<List<CustomerEntity>> customerEntityList() {
-        return mService.customerEntityList();
+        return mService.getCustomers();
     }
 }

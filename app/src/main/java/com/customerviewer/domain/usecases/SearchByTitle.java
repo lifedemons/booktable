@@ -29,7 +29,7 @@ import rx.Scheduler;
   }
 
   @Override protected Observable<List<Customer>> call() {
-    return this.mCustomerEntityDataSource.searchCustomersByTitle(mSearchedTitle)
+    return this.mCustomerEntityDataSource.searchCustomersByName(mSearchedTitle)
         .map(customerTransformer::transform);
   }
 }

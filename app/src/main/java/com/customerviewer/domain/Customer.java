@@ -13,13 +13,9 @@ public class Customer {
 
     @Getter
     @Setter
-    private String mTitle;
+    private String mFirstName;
 
     @Getter
     @Setter
-    private String mUrl;
-
-    @Getter
-    @Setter
-    private String mThumbnailUrl;
+    private String mLastName;
 }

@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.customerviewer.R;
 import com.customerviewer.presentation.model.CustomerModel;
 import java.util.Collection;
@@ -50,7 +52,8 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
 
   @Override public void onBindViewHolder(CustomerViewHolder holder, final int position) {
     final CustomerModel customerModel = mCustomerModelsList.get(position);
-    setText(holder.mTextViewTitle, customerModel.getTitle());
+    setText(holder.mTextViewFirstName, customerModel.getFirstName());
+    setText(holder.mTextViewLastName, customerModel.getLastName());
 
     holder.itemView.setOnClickListener(v -> {
       if (CustomerAdapter.this.mOnItemClickListener != null) {
@@ -94,15 +97,12 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
   }
 
   static class CustomerViewHolder extends RecyclerView.ViewHolder {
-    private TextView mTextViewTitle;
+    @BindView(R.id.first_name) TextView mTextViewFirstName;
+    @BindView(R.id.last_name) TextView mTextViewLastName;
 
     public CustomerViewHolder(View itemView) {
       super(itemView);
-      findViews(itemView);
-    }
-
-    private void findViews(View itemView) {
-      mTextViewTitle = (TextView) itemView.findViewById(R.id.title);
+      ButterKnife.bind(this, itemView);
     }
   }
 }

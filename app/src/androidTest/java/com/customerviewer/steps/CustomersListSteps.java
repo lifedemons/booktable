@@ -23,12 +23,12 @@ public class CustomersListSteps {
     mCustomerListPage.open();
   }
 
-  @Then("^User sees customer with title \"([^\"]*)\"$")
+  @Then("^User sees customer with name \"([^\"]*)\"$")
   public void userSeesCustomerWithTitle(String title) throws Throwable {
     mCustomerListPage.checkListContainsCustomer(title);
   }
 
-  @When("^User searches for customer with title \"([^\"]*)\"$")
+  @When("^User searches for customer with name \"([^\"]*)\"$")
   public void userSearchesForCustomerWithTitle(String title) throws Throwable {
     mCustomerListPage.doSearchForCustomer(title);
   }

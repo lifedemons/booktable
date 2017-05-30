@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module(library = true, complete = false) public class ApiModule {
 
-  private static String API_BASE_URL = "http://jsonplaceholder.typicode.com";
+  private static String API_BASE_URL = "https://s3-eu-west-1.amazonaws.com/";
 
   @Provides @Singleton CustomerRestService provideOrderRatingService(OkHttpClient httpClient) {
     return create(httpClient);

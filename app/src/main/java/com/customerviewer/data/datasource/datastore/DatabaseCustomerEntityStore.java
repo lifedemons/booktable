@@ -110,7 +110,7 @@ public class DatabaseCustomerEntityStore {
         try {
             QueryBuilder<CustomerEntity, Integer> queryBuilder = mCustomersDao.queryBuilder();
             mSearchByTitleQuerySelectArg = new SelectArg();
-            queryBuilder.where().like(CustomerEntity.Fields.TITLE, mSearchByTitleQuerySelectArg);
+            queryBuilder.where().like(CustomerEntity.Fields.FIRST_NAME, mSearchByTitleQuerySelectArg);
             mSearchByTitleQuery = queryBuilder.prepare();
         } catch (SQLException e) {
             Log.wtf(LOG_TAG, "Preparing of SearchByTitleQuery failed", e);

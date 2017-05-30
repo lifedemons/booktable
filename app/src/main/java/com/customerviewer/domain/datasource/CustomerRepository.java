@@ -18,10 +18,10 @@ public interface CustomerRepository {
 
     /**
      * Get an {@link rx.Observable} which will emit a List of {@link CustomerEntity},
-     * whom titles match searched title.
-     * @param title The customers' Title used to retrieve customer data.
+     * whom titles match searched name.
+     * @param name The customers' Title used to retrieve customer data.
      */
-    Observable<List<CustomerEntity>> searchCustomersByTitle(String title);
+    Observable<List<CustomerEntity>> searchCustomersByName(String name);
 
     /**
      * Get an {@link rx.Observable} which will emit a {@link CustomerEntity}.

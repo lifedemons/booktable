@@ -14,10 +14,8 @@ public class CustomerEntity {
 
     public interface Fields {
         String ID = "id";
-        String ALBUM_ID = "albumId";
-        String TITLE = "title";
-        String URL = "url";
-        String THUMBNAIL_URL = "thumbnailUrl";
+        String FIRST_NAME = "customerFirstName";
+        String LAST_NAME = "customerLastName";
     }
 
     @SerializedName(Fields.ID)
@@ -26,24 +24,15 @@ public class CustomerEntity {
     @DatabaseField(id = true, columnName = Fields.ID)
     private int mId;
 
-    @SerializedName(Fields.ALBUM_ID)
-    @Getter
-    @DatabaseField(columnName = Fields.ALBUM_ID)
-    private int mAlbumId;
-
-    @SerializedName(Fields.TITLE)
+    @SerializedName(Fields.FIRST_NAME)
     @Getter
     @Setter
-    @DatabaseField(columnName = Fields.TITLE)
-    private String mTitle;
+    @DatabaseField(columnName = Fields.FIRST_NAME)
+    private String mFirstName;
 
-    @SerializedName(Fields.URL)
+    @SerializedName(Fields.LAST_NAME)
     @Getter
-    @DatabaseField(columnName = Fields.URL)
-    private String mUrl;
-
-    @SerializedName(Fields.THUMBNAIL_URL)
-    @Getter
-    @DatabaseField(columnName = Fields.THUMBNAIL_URL)
-    private String mThumbnailUrl;
+    @Setter
+    @DatabaseField(columnName = Fields.LAST_NAME)
+    private String mLastName;
 }

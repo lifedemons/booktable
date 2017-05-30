@@ -10,9 +10,8 @@ public class CustomerEntityToCustomer extends BaseLayerDataTransformer<CustomerE
         Customer transformed = new Customer();
 
         transformed.setId(from.getId());
-        transformed.setTitle(from.getTitle());
-        transformed.setUrl(from.getUrl());
-        transformed.setThumbnailUrl(from.getThumbnailUrl());
+        transformed.setFirstName(from.getFirstName());
+        transformed.setLastName(from.getLastName());
 
         return transformed;
     }

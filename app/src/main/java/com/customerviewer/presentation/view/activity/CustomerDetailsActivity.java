@@ -132,7 +132,7 @@ public class CustomerDetailsActivity extends DiAppCompatActivity implements Cust
     @Override
     public void renderCustomer(CustomerModel customerModel) {
         if (customerModel != null) {
-            mTitleTextView.setText(customerModel.getTitle());
+            mTitleTextView.setText(customerModel.getFirstName());
         }
     }
 }

@@ -15,6 +15,12 @@ public interface CustomerRestService {
     /**
      * Retrieves an {@link rx.Observable} which will emit a List of {@link CustomerEntity}.
      */
-    @GET("/photos")
-    Observable<List<CustomerEntity>> customerEntityList();
+    @GET("quandoo-assessment/customer-list.json")
+    Observable<List<CustomerEntity>> getCustomers();
+
+    /**
+     * Retrieves an {@link rx.Observable} which will emit a List of {@link CustomerEntity}.
+     */
+    @GET("quandoo-assessment/table-map.json")
+    Observable<List<CustomerEntity>> getTables();
 }

@@ -165,7 +165,7 @@ public class CustomerListPresenter {
 
         @Override
         public int compare(@NonNull CustomerModel lhs, @NonNull CustomerModel rhs) {
-            return lhs.getTitle().compareToIgnoreCase(rhs.getTitle())
+            return lhs.getFirstName().compareToIgnoreCase(rhs.getFirstName())
                     * (mIsAscending ? 1 : -1);
         }
     }

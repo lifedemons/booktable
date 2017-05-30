@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="UseCompoundDrawables"
-    android:layout_width="match_parent"
-    android:layout_height="76dp"
-    android:orientation="horizontal"
-    android:padding="@dimen/list_view_row_padding"
-    android:background="@drawable/selector_item_customer">
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="76dp"
+  android:background="@drawable/selector_item_customer"
+  android:orientation="horizontal"
+  android:padding="@dimen/list_view_row_padding"
+  tools:ignore="UseCompoundDrawables">
 
   <TextView
-      android:id="@+id/title"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:textSize="@dimen/list_view_row_text_size"
-      android:gravity="center_vertical"
-      android:lines="2"
-      android:ellipsize="end"/>
+    android:id="@+id/first_name"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_marginEnd="5dp"
+    android:ellipsize="end"
+    android:gravity="center_vertical"
+    android:lines="1"
+    android:textSize="@dimen/list_view_row_text_size" />
+
+  <TextView
+    android:id="@+id/last_name"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:ellipsize="end"
+    android:gravity="center_vertical"
+    android:lines="1"
+    android:textSize="@dimen/list_view_row_text_size" />
 
 </LinearLayout>
