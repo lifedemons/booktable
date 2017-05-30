@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,7 +13,6 @@ import com.customerviewer.R;
 import com.customerviewer.presentation.model.CustomerModel;
 import com.customerviewer.presentation.presenter.CustomerDetailsPresenter;
 import com.customerviewer.presentation.view.CustomerDetailsView;
-import com.squareup.picasso.Picasso;
 import javax.inject.Inject;
 
 /**
@@ -26,10 +24,8 @@ public class CustomerDetailsActivity extends DiAppCompatActivity implements Cust
     private static final String INSTANCE_STATE_PARAM_CUSTOMER_ID = "STATE_PARAM_CUSTOMER_ID";
 
     @Inject CustomerDetailsPresenter mCustomerDetailsPresenter;
-    @Inject Picasso mPicasso;
 
     //Content Views
-    @BindView(R.id.cover_image_view) ImageView mCoverImageView;
     @BindView(R.id.title_text_view) TextView mTitleTextView;
 
     //Data Loading Views
@@ -148,10 +144,6 @@ public class CustomerDetailsActivity extends DiAppCompatActivity implements Cust
     @Override
     public void renderCustomer(CustomerModel customerModel) {
         if (customerModel != null) {
-            mPicasso.load(customerModel.getUrl())
-                    .placeholder(R.drawable.ic_crop_original_black)
-                    .error(R.drawable.ic_error_outline_black)
-                    .into(mCoverImageView);
             mTitleTextView.setText(customerModel.getTitle());
         }
     }

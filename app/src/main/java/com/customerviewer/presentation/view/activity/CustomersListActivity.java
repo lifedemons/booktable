@@ -22,9 +22,6 @@ import com.customerviewer.presentation.navigation.Navigator;
 import com.customerviewer.presentation.presenter.CustomerListPresenter;
 import com.customerviewer.presentation.view.CustomerListView;
 import com.customerviewer.presentation.view.adapter.CustomerAdapter;
-import com.customerviewer.presentation.view.utils.ImageRoundedCornersTransformation;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Transformation;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.inject.Inject;
@@ -33,7 +30,6 @@ public class CustomersListActivity extends DiAppCompatActivity implements Custom
 
     @Inject CustomerListPresenter mCustomerListPresenter;
     @Inject Navigator mNavigator;
-    @Inject Picasso mPicasso;
 
     //Toolbar Views
     @BindView(R.id.toolbar) Toolbar mToolbar;
@@ -49,7 +45,6 @@ public class CustomersListActivity extends DiAppCompatActivity implements Custom
     private CheckBox mSortMenuCheckBox;
 
     private CustomerAdapter mCustomersListAdapter;
-    private Transformation mImageTransformation;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -152,30 +147,21 @@ public class CustomersListActivity extends DiAppCompatActivity implements Custom
 
         mCustomerListView.setLayoutManager(new LinearLayoutManager(this));
 
-        mCustomersListAdapter = new CustomerAdapter(this, new ArrayList<>(), mPicasso);
+        mCustomersListAdapter = new CustomerAdapter(this, new ArrayList<>());
         mCustomersListAdapter.setOnItemClickListener(onItemClickListener);
         mCustomerListView.setAdapter(mCustomersListAdapter);
 
         mRetryButton.setOnClickListener(v -> onButtonRetryClick());
-
-        setupTransformation();
-    }
-
-    private void setupTransformation() {
-        int radius = (int) getResources().getDimension(R.dimen.list_view_row_icon_rounding_radius);
-        mImageTransformation = new ImageRoundedCornersTransformation(radius, 0);
     }
 
     @Override
     public void showLoading() {
         mProgressView.setVisibility(View.VISIBLE);
-        setProgressBarIndeterminateVisibility(true);
     }
 
     @Override
     public void hideLoading() {
         mProgressView.setVisibility(View.GONE);
-        setProgressBarIndeterminateVisibility(false);
     }
 
     @Override

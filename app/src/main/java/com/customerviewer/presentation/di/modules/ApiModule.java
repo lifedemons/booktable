@@ -1,10 +1,7 @@
 package com.customerviewer.presentation.di.modules;
 
-import android.content.Context;
-import com.jakewharton.picasso.OkHttp3Downloader;
 import com.customerviewer.BuildConfig;
 import com.customerviewer.data.network.CustomerRestService;
-import com.squareup.picasso.Picasso;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
@@ -45,11 +42,4 @@ import retrofit2.converter.gson.GsonConverterFactory;
     return builder.build();
   }
 
-  @Provides @Singleton Picasso providePicasso(OkHttpClient httpClient, Context context) {
-
-    Picasso.Builder builder = new Picasso.Builder(context);
-    Picasso picasso = builder.downloader(new OkHttp3Downloader(httpClient)).build();
-
-    return picasso;
-  }
 }

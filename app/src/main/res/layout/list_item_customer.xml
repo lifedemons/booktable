@@ -8,15 +8,6 @@
     android:padding="@dimen/list_view_row_padding"
     android:background="@drawable/selector_item_customer">
 
-  <ImageView
-      android:id="@+id/avatar"
-      android:layout_width="@dimen/list_view_row_icon_width"
-      android:layout_height="@dimen/list_view_row_icon_width"
-      android:src="@drawable/ic_crop_original_black"
-      android:paddingLeft="@dimen/list_view_row_icon_padding"
-      android:paddingRight="@dimen/list_view_row_icon_padding"
-      android:contentDescription="@string/string_content_description"/>
-
   <TextView
       android:id="@+id/title"
       android:layout_width="match_parent"

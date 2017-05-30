@@ -13,7 +13,6 @@ def lib = [lombok        : "1.16.8",
            ormlite       : "5.0",
            okhttp3       : "3.8.0",
            retrofit2     : "2.3.0",
-           picasso       : "2.5.2",
            testSupport   : "0.5",
            cucumber      : "1.2.2",
            espresso      : "2.2.2"]
@@ -95,10 +94,6 @@ dependencies {
   compile "com.squareup.retrofit2:retrofit:${lib.retrofit2}"
   compile "com.squareup.retrofit2:adapter-rxjava:${lib.retrofit2}"
   compile "com.squareup.retrofit2:converter-gson:${lib.retrofit2}"
-
-  // Image Loader
-  compile "com.squareup.picasso:picasso:${lib.picasso}"
-  compile "com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0"
 
   // Unit test
   testCompile 'junit:junit:4.12'
