@@ -2,12 +2,12 @@
 
 package com.bookatable.data.datasource
 
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.whenever
-import com.bookatable.data.entity.CustomerEntity
 import com.bookatable.data.datasource.datastore.DatabaseCustomerEntityStore
 import com.bookatable.data.datasource.datastore.ServerCustomerEntityStore
+import com.bookatable.data.entity.CustomerEntity
 import com.bookatable.domain.usecases.SimpleSubscriber
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.whenever
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.verify

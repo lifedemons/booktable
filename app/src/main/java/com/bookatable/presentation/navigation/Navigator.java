@@ -2,7 +2,6 @@ package com.bookatable.presentation.navigation;
 
 import android.content.Context;
 import android.content.Intent;
-
 import com.bookatable.presentation.view.activity.CustomerDetailsActivity;
 import javax.inject.Inject;
 
@@ -11,7 +10,8 @@ import javax.inject.Inject;
  */
 public class Navigator {
 
-  @Inject public Navigator() {}
+  @Inject public Navigator() {
+  }
 
   /**
    * Goes to the customer details screen.

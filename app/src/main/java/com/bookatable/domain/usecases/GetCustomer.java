@@ -1,9 +1,9 @@
 package com.bookatable.domain.usecases;
 
 import com.bookatable.data.datasource.CustomerEntityDataSource;
+import com.bookatable.data.di.RxModule;
 import com.bookatable.domain.Customer;
 import com.bookatable.domain.mapper.customer.CustomerEntityToCustomer;
-import com.bookatable.data.di.RxModule;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Setter;
@@ -13,9 +13,8 @@ import rx.Scheduler;
 
 @Accessors(prefix = "m") public class GetCustomer extends UseCase<Customer> {
 
-  @Setter private int mCustomerId;
   private final CustomerEntityToCustomer mCustomerTransformer;
-
+  @Setter private int mCustomerId;
   private CustomerEntityDataSource mCustomerEntityDataSource;
 
   @Inject public GetCustomer(@Named(RxModule.COMPUTATION) Scheduler executionScheduler,
@@ -27,6 +26,7 @@ import rx.Scheduler;
   }
 
   @Override protected Observable<Customer> call() {
-    return this.mCustomerEntityDataSource.customer(mCustomerId).map(mCustomerTransformer::transform);
+    return this.mCustomerEntityDataSource.customer(mCustomerId)
+        .map(mCustomerTransformer::transform);
   }
 }

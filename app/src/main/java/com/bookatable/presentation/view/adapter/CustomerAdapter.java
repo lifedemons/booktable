@@ -19,20 +19,25 @@ import java.util.List;
  */
 public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder> {
 
+  private static final String STRING_PREPARED_HIGHLIGHT_MARKUP = "<font color='red'>%s</font>";
   private final LayoutInflater mLayoutInflater;
   private final Context mContext;
   private List<CustomerModel> mCustomerModelsList;
   private OnItemClickListener mOnItemClickListener;
-
   //Highlighting
   private String mTextToHighlight;
-  private static final String STRING_PREPARED_HIGHLIGHT_MARKUP = "<font color='red'>%s</font>";
 
   public CustomerAdapter(Context context, Collection<CustomerModel> customerModelsCollection) {
     validateCustomersCollection(customerModelsCollection);
     mContext = context;
     mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     mCustomerModelsList = (List<CustomerModel>) customerModelsCollection;
+  }
+
+  private void validateCustomersCollection(Collection<CustomerModel> customerModelsCollection) {
+    if (customerModelsCollection == null) {
+      throw new IllegalArgumentException("The list cannot be null");
+    }
   }
 
   public void highlightText(String textToHighlight) {
@@ -84,12 +89,6 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
 
   public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
     mOnItemClickListener = onItemClickListener;
-  }
-
-  private void validateCustomersCollection(Collection<CustomerModel> customerModelsCollection) {
-    if (customerModelsCollection == null) {
-      throw new IllegalArgumentException("The list cannot be null");
-    }
   }
 
   public interface OnItemClickListener {

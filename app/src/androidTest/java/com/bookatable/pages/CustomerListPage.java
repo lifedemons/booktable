@@ -14,12 +14,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 public class CustomerListPage extends PageObject<CustomersListActivity> {
 
-  private interface Locators {
-    int CUSTOMERS_LIST_VIEW = R.id.customers_list;
-    int CUSTOMERS_SEARCH_BUTTON = R.id.menu_search;
-    int SEARCH_SRC_TEXT = android.support.design.R.id.search_src_text;
-  }
-
   public CustomerListPage() {
     super(CustomersListActivity.class);
   }
@@ -35,5 +29,11 @@ public class CustomerListPage extends PageObject<CustomersListActivity> {
   public void doSearchForCustomer(String title) {
     onView(withId(Locators.CUSTOMERS_SEARCH_BUTTON)).perform(click());
     onView(withId(Locators.SEARCH_SRC_TEXT)).perform(typeText(title));
+  }
+
+  private interface Locators {
+    int CUSTOMERS_LIST_VIEW = R.id.customers_list;
+    int CUSTOMERS_SEARCH_BUTTON = R.id.menu_search;
+    int SEARCH_SRC_TEXT = android.support.design.R.id.search_src_text;
   }
 }

@@ -5,14 +5,13 @@ import com.bookatable.domain.mapper.BaseLayerDataTransformer;
 import com.bookatable.presentation.model.CustomerModel;
 
 public class CustomerModelToCustomer extends BaseLayerDataTransformer<CustomerModel, Customer> {
-    @Override
-    public Customer transform(CustomerModel from) {
-        Customer transformed = new Customer();
+  @Override public Customer transform(CustomerModel from) {
+    Customer transformed = new Customer();
 
-        transformed.setId(from.getId());
-        transformed.setFirstName(from.getFirstName());
-        transformed.setLastName(from.getLastName());
+    transformed.setId(from.getId());
+    transformed.setFirstName(from.getFirstName());
+    transformed.setLastName(from.getLastName());
 
-        return transformed;
-    }
+    return transformed;
+  }
 }

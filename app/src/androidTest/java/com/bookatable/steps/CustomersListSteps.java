@@ -18,8 +18,7 @@ public class CustomersListSteps {
     mCustomerListPage.tearDown();
   }
 
-  @Given("^User opens Customers List")
-  public void user_opens_the_login_page() {
+  @Given("^User opens Customers List") public void user_opens_the_login_page() {
     mCustomerListPage.open();
   }
 

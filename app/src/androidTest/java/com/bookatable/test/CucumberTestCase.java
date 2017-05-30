@@ -10,9 +10,7 @@ import cucumber.api.CucumberOptions;
         "html:" + CucumberTestCase.REPORTS_PATH + "cucumber-html-report",
         "json:" + CucumberTestCase.REPORTS_PATH + "cucumber.json",
         "junit:" + CucumberTestCase.REPORTS_PATH + "cucumber.xml"
-    },
-    tags = { "@functional-scenarios" })
-class CucumberTestCase {
+    }, tags = { "@functional-scenarios" }) class CucumberTestCase {
   public static final String REPORTS_PATH =
       "/data/data/" + BuildConfig.APPLICATION_ID + "/cucumber-reports/";
 }

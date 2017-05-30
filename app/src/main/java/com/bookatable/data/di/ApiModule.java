@@ -41,5 +41,4 @@ import retrofit2.converter.gson.GsonConverterFactory;
     }
     return builder.build();
   }
-
 }

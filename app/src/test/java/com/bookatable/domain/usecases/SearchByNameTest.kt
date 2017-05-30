@@ -1,11 +1,12 @@
 @file:Suppress("IllegalIdentifier")
+
 package com.bookatable.domain.usecases
 
+import com.bookatable.data.datasource.CustomerEntityDataSource
+import com.bookatable.data.entity.CustomerEntity
+import com.bookatable.domain.Customer
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
-import com.bookatable.data.entity.CustomerEntity
-import com.bookatable.data.datasource.CustomerEntityDataSource
-import com.bookatable.domain.Customer
 import org.junit.Before
 import org.junit.Test
 import rx.Observable.just

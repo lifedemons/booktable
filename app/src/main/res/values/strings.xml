@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Book A Table</string>
+  <string name="app_name">Book A Table</string>
 
-    <string name="activity_title_customer_list">Customers List</string>
-    <string name="activity_title_customer_details">Customer Details</string>
+  <string name="activity_title_customer_list">Customers List</string>
+  <string name="activity_title_customer_details">Customer Details</string>
 
-    <string name="btn_text_load_data">Load Sample Data</string>
-    <string name="btn_text_retry">Retry</string>
+  <string name="btn_text_load_data">Load Sample Data</string>
+  <string name="btn_text_retry">Retry</string>
 
-    <string name="view_text_email">Email:</string>
-    <string name="view_text_followers">Followers:</string>
-    <string name="view_text_description">Description:</string>
+  <string name="view_text_email">Email:</string>
+  <string name="view_text_followers">Followers:</string>
+  <string name="view_text_description">Description:</string>
 
-    <string name="string_content_description">Non accessible view</string>
+  <string name="string_content_description">Non accessible view</string>
 
-    //Exception messages
-    <string name="exception_message_generic">There was an application error</string>
-    <string name="exception_message_no_connection">There is no internet connection</string>
-    <string name="exception_message_customer_not_found">Cannot retrieve customer data. Check your internet connection</string>
+  //Exception messages
+  <string name="exception_message_generic">There was an application error</string>
+  <string name="exception_message_no_connection">There is no internet connection</string>
+  <string name="exception_message_customer_not_found">Cannot retrieve customer data. Check your internet connection</string>
 
-    //Menus
-    <string name="menu_search">Search</string>
-    <string name="menu_sort">Sort</string>
+  //Menus
+  <string name="menu_search">Search</string>
+  <string name="menu_sort">Sort</string>
 
 </resources>
