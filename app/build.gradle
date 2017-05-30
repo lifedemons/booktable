@@ -23,12 +23,12 @@ android {
   buildToolsVersion '25.0.2'
 
   defaultConfig {
-    applicationId "com.photoviewer"
+    applicationId "com.customerviewer"
     minSdkVersion 17
     targetSdkVersion 25
     versionCode 1
     versionName "1.0"
-    testInstrumentationRunner "com.photoviewer.cucumber.CucumberTestRunner"
+    testInstrumentationRunner "com.customerviewer.cucumber.CucumberTestRunner"
   }
   buildTypes {
     debug {

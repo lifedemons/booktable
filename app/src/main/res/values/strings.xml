@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">PhotoViewer</string>
-    <string name="url">https://github.com/lifedemons/photoviewer</string>
+    <string name="app_name">CustomerViewer</string>
+    <string name="url">https://github.com/lifedemons/customerviewer</string>
 
-    <string name="activity_title_photo_list">Photos List</string>
-    <string name="activity_title_photo_details">Photo Details</string>
+    <string name="activity_title_customer_list">Customers List</string>
+    <string name="activity_title_customer_details">Customer Details</string>
 
     <string name="btn_text_load_data">Load Sample Data</string>
     <string name="btn_text_retry">Retry</string>
@@ -18,7 +18,7 @@
     //Exception messages
     <string name="exception_message_generic">There was an application error</string>
     <string name="exception_message_no_connection">There is no internet connection</string>
-    <string name="exception_message_photo_not_found">Cannot retrieve photo data. Check your internet connection</string>
+    <string name="exception_message_customer_not_found">Cannot retrieve customer data. Check your internet connection</string>
 
     //Menus
     <string name="menu_search">Search</string>

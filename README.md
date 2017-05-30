@@ -1,4 +1,4 @@
-# Photo Viewer Sample
+# Customer Viewer Sample
 This is the sample of Clean Architecture in Real Conditions
 
 This project has been influenced by:
