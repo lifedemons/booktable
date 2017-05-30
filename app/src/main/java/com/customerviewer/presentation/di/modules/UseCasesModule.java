@@ -11,15 +11,6 @@ import dagger.Module;
 //    return useCase;
 //  }
 //
-//  @Provides @Singleton GetCustomerStatistics providesGetCustomerStatistics(GetCustomerStatistics useCase) {
-//    return useCase;
-//  }
-//
-//  @Provides @Singleton SaveCustomerStatistics providesSaveCustomerStatistics(
-//      SaveCustomerStatistics useCase) {
-//    return useCase;
-//  }
-//
 //  @Provides @Singleton SearchByTitle providesSearchByTitle(SearchByTitle useCase) {
 //    return useCase;
 //  }

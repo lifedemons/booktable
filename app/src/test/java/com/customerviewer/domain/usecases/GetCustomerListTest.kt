@@ -15,7 +15,7 @@ import rx.observers.TestSubscriber
 import java.util.*
 import kotlin.test.assertEquals
 
-class GetCustomersListTest {
+class GetCustomerListTest {
 
     private val mCustomerEntityDataSource: CustomerEntityDataSource = mock()
     private val mMockScheduler: Scheduler = mock()

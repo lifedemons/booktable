@@ -6,8 +6,6 @@
 package com.customerviewer.presentation.view;
 
 import com.customerviewer.presentation.model.CustomerModel;
-import com.customerviewer.presentation.model.CustomerStatisticsModel;
-
 import java.util.Collection;
 
 /**
@@ -28,14 +26,6 @@ public interface CustomerListView extends LoadDataView {
      * @param customerModel The customer that will be shown.
      */
     void viewCustomer(CustomerModel customerModel);
-
-
-    /**
-     * View a {@link CustomerStatisticsModel} profile/details.
-     *
-     * @param customerStatisticsModel The CustomerStatisticsModel that will be shown.
-     */
-    void renderCustomerStatisticsModel(CustomerStatisticsModel customerStatisticsModel);
 
     /**
      * Highlights text entries in list items.

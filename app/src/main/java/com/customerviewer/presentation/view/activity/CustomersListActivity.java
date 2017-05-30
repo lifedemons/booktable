@@ -13,15 +13,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.BindView;
-import com.jakewharton.picasso.OkHttp3Downloader;
 import com.customerviewer.R;
 import com.customerviewer.presentation.model.CustomerModel;
-import com.customerviewer.presentation.model.CustomerStatisticsModel;
 import com.customerviewer.presentation.navigation.Navigator;
 import com.customerviewer.presentation.presenter.CustomerListPresenter;
 import com.customerviewer.presentation.view.CustomerListView;
@@ -32,7 +28,6 @@ import com.squareup.picasso.Transformation;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.inject.Inject;
-import okhttp3.OkHttpClient;
 
 public class CustomersListActivity extends DiAppCompatActivity implements CustomerListView {
 
@@ -42,8 +37,6 @@ public class CustomersListActivity extends DiAppCompatActivity implements Custom
 
     //Toolbar Views
     @BindView(R.id.toolbar) Toolbar mToolbar;
-    @BindView(R.id.last_opened_customer_image_view) ImageView mLastOpenedImageView;
-    @BindView(R.id.opened_customer_count_text_view) TextView mOpenedCustomersCountView;
 
     //Content Views
     @BindView(R.id.customers_list) RecyclerView mCustomerListView;
@@ -235,20 +228,6 @@ public class CustomersListActivity extends DiAppCompatActivity implements Custom
     @Override
     public void viewCustomer(CustomerModel customerModel) {
         mNavigator.navigateToCustomerDetails(this, customerModel.getId());
-    }
-
-    @Override
-    public void renderCustomerStatisticsModel(CustomerStatisticsModel customerStatisticsModel) {
-        mOpenedCustomersCountView.setText(Integer.toString(customerStatisticsModel.getOpenedCustomersCount()));
-
-        CustomerModel lastOpenedCustomerModel = customerStatisticsModel.getLastOpenedCustomerModel();
-        if (lastOpenedCustomerModel != null) {
-            mPicasso.load(lastOpenedCustomerModel.getThumbnailUrl())
-                    .transform(mImageTransformation)
-                    .placeholder(R.drawable.ic_crop_original_black)
-                    .error(R.drawable.ic_error_outline_black)
-                    .into(mLastOpenedImageView);
-        }
     }
 
     @Override
