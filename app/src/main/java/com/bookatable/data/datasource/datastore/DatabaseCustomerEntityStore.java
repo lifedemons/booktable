@@ -24,7 +24,8 @@ public class DatabaseCustomerEntityStore {
 
   //Search prepared fields, for faster search
   private PreparedQuery<CustomerEntity> mSearchByTitleQuery;
-  private SelectArg mSearchByTitleQuerySelectArg;
+  private SelectArg mSearchByFirstNameQuerySelectArg;
+  private SelectArg mSearchByLastNameQuerySelectArg;
 
   @Inject public DatabaseCustomerEntityStore(DatabaseManager databaseManager) {
     mCustomersDao = databaseManager.getCustomersDao();
@@ -34,8 +35,12 @@ public class DatabaseCustomerEntityStore {
   private void prepareSearchByTitleQuery() {
     try {
       QueryBuilder<CustomerEntity, Integer> queryBuilder = mCustomersDao.queryBuilder();
-      mSearchByTitleQuerySelectArg = new SelectArg();
-      queryBuilder.where().like(CustomerEntity.Fields.FIRST_NAME, mSearchByTitleQuerySelectArg);
+      mSearchByFirstNameQuerySelectArg = new SelectArg();
+      mSearchByLastNameQuerySelectArg = new SelectArg();
+      queryBuilder.where()
+          .like(CustomerEntity.Fields.FIRST_NAME, mSearchByFirstNameQuerySelectArg)
+          .or()
+          .like(CustomerEntity.Fields.LAST_NAME, mSearchByLastNameQuerySelectArg);
       mSearchByTitleQuery = queryBuilder.prepare();
     } catch (SQLException e) {
       Log.wtf(LOG_TAG, "Preparing of SearchByTitleQuery failed", e);
@@ -72,7 +77,9 @@ public class DatabaseCustomerEntityStore {
 
   public Single<List<CustomerEntity>> queryForTitle(String title) {
     return Single.fromCallable(() -> {
-      mSearchByTitleQuerySelectArg.setValue(PERCENT + title + PERCENT);
+      String value = PERCENT + title + PERCENT;
+      mSearchByFirstNameQuerySelectArg.setValue(value);
+      mSearchByLastNameQuerySelectArg.setValue(value);
       return mCustomersDao.query(mSearchByTitleQuery);
     });
   }
