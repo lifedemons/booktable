@@ -1,12 +1,14 @@
 package com.bookatable.presentation.presenter;
 
 import android.support.annotation.NonNull;
+import com.bookatable.data.di.RxModule;
 import com.bookatable.data.entity.Customer;
 import com.bookatable.domain.usecases.GetCustomer;
-import com.bookatable.domain.usecases.SimpleSubscriber;
 import com.bookatable.presentation.view.CustomerDetailsView;
 import javax.inject.Inject;
-
+import javax.inject.Named;
+import rx.Scheduler;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Presenter as in Model-View-Presenter pattern.
@@ -14,6 +16,9 @@ import javax.inject.Inject;
 public class CustomerDetailsPresenter {
 
   private final GetCustomer mGetCustomerUseCase;
+  private final Scheduler mExecutionScheduler;
+  private final Scheduler mObservingScheduler;
+  private final CompositeSubscription mCompositeSubscription;
 
   /**
    * id used to retrieve customer details
@@ -21,8 +26,14 @@ public class CustomerDetailsPresenter {
   private int mCustomerId;
   private CustomerDetailsView mViewDetailsView;
 
-  @Inject public CustomerDetailsPresenter(GetCustomer getCustomerUseCase) {
+  @Inject public CustomerDetailsPresenter(GetCustomer getCustomerUseCase,
+      @Named(RxModule.COMPUTATION) Scheduler executionScheduler,
+      @Named(RxModule.MAIN_THREAD) Scheduler observingScheduler,
+      CompositeSubscription compositeSubscription) {
     mGetCustomerUseCase = getCustomerUseCase;
+    mExecutionScheduler = executionScheduler;
+    mObservingScheduler = observingScheduler;
+    mCompositeSubscription = compositeSubscription;
   }
 
   public void setView(@NonNull CustomerDetailsView view) {
@@ -30,7 +41,7 @@ public class CustomerDetailsPresenter {
   }
 
   public void destroy() {
-    mGetCustomerUseCase.unsubscribe();
+    mCompositeSubscription.clear();
   }
 
   /**
@@ -59,8 +70,17 @@ public class CustomerDetailsPresenter {
   }
 
   private void getCustomerDetails() {
-    mGetCustomerUseCase.setCustomerId(mCustomerId);
-    mGetCustomerUseCase.execute(new CustomerDetailsSubscriber());
+    mCompositeSubscription.add(
+        mGetCustomerUseCase.call(mCustomerId)
+        .subscribeOn(mExecutionScheduler)
+        .observeOn(mObservingScheduler)
+        .subscribe(this::showCustomerDetailsInView, this::onError));
+  }
+
+  private void onError(Throwable throwable) {
+    hideViewLoading();
+    showErrorMessage();
+    showViewRetry();
   }
 
   private void hideViewLoading() {
@@ -79,22 +99,5 @@ public class CustomerDetailsPresenter {
 
   private void showCustomerDetailsInView(Customer customer) {
     mViewDetailsView.renderCustomer(customer);
-  }
-
-  private final class CustomerDetailsSubscriber extends SimpleSubscriber<Customer> {
-
-    @Override public void onCompleted() {
-      CustomerDetailsPresenter.this.hideViewLoading();
-    }
-
-    @Override public void onError(Throwable e) {
-      CustomerDetailsPresenter.this.hideViewLoading();
-      CustomerDetailsPresenter.this.showErrorMessage();
-      CustomerDetailsPresenter.this.showViewRetry();
-    }
-
-    @Override public void onNext(Customer customer) {
-      CustomerDetailsPresenter.this.showCustomerDetailsInView(customer);
-    }
   }
 }

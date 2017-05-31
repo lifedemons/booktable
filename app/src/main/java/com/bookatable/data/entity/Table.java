@@ -3,14 +3,13 @@ package com.bookatable.data.entity;
 import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import lombok.experimental.Accessors;
 
 /**
  * This is Data Layer model, which holds info about Json and Database related fields about tables
  */
-@Getter @Setter @Accessors(prefix = "m") @DatabaseTable(tableName = "tables")
+@Data @Accessors(prefix = "m") @DatabaseTable(tableName = "tables")
 public class Table {
   @SerializedName(Fields.ID) @DatabaseField(id = true, columnName = Fields.ID)
   private Integer mId;

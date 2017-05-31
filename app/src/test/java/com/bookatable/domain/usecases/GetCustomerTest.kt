@@ -9,7 +9,6 @@ import com.nhaarman.mockito_kotlin.whenever
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Matchers.anyInt
-import rx.Scheduler
 import rx.Single.just
 import rx.observers.TestSubscriber
 import kotlin.test.assertEquals
@@ -17,7 +16,6 @@ import kotlin.test.assertEquals
 class GetCustomerTest {
 
     private val mCustomerEntityDataSource: CustomerEntityDataSource = mock()
-    private val mScheduler: Scheduler = mock()
 
     private lateinit var mGetCustomer: GetCustomer
     private lateinit var mTestSubscriber: TestSubscriber<Customer>
@@ -29,15 +27,14 @@ class GetCustomerTest {
 
     @Before fun setUp() {
         mTestSubscriber = TestSubscriber.create()
-        mGetCustomer = GetCustomer(mScheduler, mScheduler, mCustomerEntityDataSource)
+        mGetCustomer = GetCustomer(mCustomerEntityDataSource)
     }
 
     @Test fun `should get particular customer`() {
         val customerEntity = createCustomerEntity()
         assumeDataSourceHasRequestedCustomer(customerEntity)
 
-        mGetCustomer.setCustomerId(FAKE_CUSTOMER_ID)
-        mGetCustomer.call().subscribe(mTestSubscriber)
+        mGetCustomer.call(FAKE_CUSTOMER_ID).subscribe(mTestSubscriber)
 
         assertEquals(FAKE_CUSTOMER_ID, mTestSubscriber.onNextEvents[0].id)
     }

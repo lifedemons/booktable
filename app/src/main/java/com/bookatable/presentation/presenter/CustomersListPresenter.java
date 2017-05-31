@@ -1,15 +1,18 @@
 package com.bookatable.presentation.presenter;
 
 import android.support.annotation.NonNull;
+import com.bookatable.data.di.RxModule;
 import com.bookatable.data.entity.Customer;
 import com.bookatable.domain.usecases.GetCustomersList;
 import com.bookatable.domain.usecases.SearchByName;
-import com.bookatable.domain.usecases.SimpleSubscriber;
 import com.bookatable.presentation.view.CustomerListView;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import javax.inject.Inject;
+import javax.inject.Named;
+import rx.Scheduler;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Presenter as in Model-View-Presenter pattern.
@@ -20,6 +23,10 @@ public class CustomersListPresenter {
   //Use cases
   private final GetCustomersList mGetCustomerListUseCase;
   private final SearchByName mSearchByNameUseCase;
+  private final Scheduler mExecutionScheduler;
+  private final Scheduler mObservingScheduler;
+  private final CompositeSubscription mCompositeSubscription;
+
   private CustomerListView mViewList;
 
   private AlphabetCustomerModelTitleComparator mModelFirstNameComparator =
@@ -27,10 +34,15 @@ public class CustomersListPresenter {
   private String mSearchedTitle;
 
   @Inject public CustomersListPresenter(GetCustomersList getCustomerListUseCase,
-      SearchByName searchByNameUseCase) {
+      SearchByName searchByNameUseCase, @Named(RxModule.COMPUTATION) Scheduler executionScheduler,
+      @Named(RxModule.MAIN_THREAD) Scheduler observingScheduler,
+      CompositeSubscription compositeSubscription) {
 
     mGetCustomerListUseCase = getCustomerListUseCase;
     mSearchByNameUseCase = searchByNameUseCase;
+    mExecutionScheduler = executionScheduler;
+    mObservingScheduler = observingScheduler;
+    mCompositeSubscription = compositeSubscription;
   }
 
   public void setView(@NonNull CustomerListView view) {
@@ -38,7 +50,7 @@ public class CustomersListPresenter {
   }
 
   public void destroy() {
-    mGetCustomerListUseCase.unsubscribe();
+    mCompositeSubscription.clear();
   }
 
   /**
@@ -66,7 +78,17 @@ public class CustomersListPresenter {
   }
 
   private void getCustomerList() {
-    mGetCustomerListUseCase.execute(new CustomerListSubscriber());
+    mCompositeSubscription.add(
+        mGetCustomerListUseCase.call()
+            .subscribeOn(mExecutionScheduler)
+            .observeOn(mObservingScheduler)
+            .subscribe(this::showCustomerListInView, this::onError));
+  }
+
+  private void onError(Throwable throwable) {
+    hideViewLoading();
+    showErrorMessage();
+    showViewRetry();
   }
 
   public void sort(boolean ascending) {
@@ -80,18 +102,25 @@ public class CustomersListPresenter {
     }
   }
 
-  public void searchByTitle(String title) {
-    mSearchedTitle = title;
+  public void searchByTitle(String name) {
+    mSearchedTitle = name;
 
-    if (title == null || title.isEmpty()) {
+    if (name == null || name.isEmpty()) {
       loadCustomerList();
     } else {
       showViewLoading();
-      mSearchByNameUseCase.setSearchedTitle(title);
-      mSearchByNameUseCase.execute(new CustomerListSubscriber());
+      launchSearch(name);
     }
 
-    mViewList.highlightTextInList(title);
+    mViewList.highlightTextInList(name);
+  }
+
+  private void launchSearch(String name) {
+    mCompositeSubscription.add(
+        mSearchByNameUseCase.call(name)
+            .subscribeOn(mExecutionScheduler)
+            .observeOn(mObservingScheduler)
+            .subscribe(this::showCustomerListInView, this::onError));
   }
 
   public void onCustomerClicked(Customer customer) {
@@ -113,26 +142,10 @@ public class CustomersListPresenter {
   }
 
   private void showCustomerListInView(List<Customer> customerList) {
+    hideViewLoading();
     Collections.sort(customerList, mModelFirstNameComparator);
 
     mViewList.renderCustomerList(customerList);
-  }
-
-  private final class CustomerListSubscriber extends SimpleSubscriber<List<Customer>> {
-
-    @Override public void onCompleted() {
-      CustomersListPresenter.this.hideViewLoading();
-    }
-
-    @Override public void onError(Throwable e) {
-      CustomersListPresenter.this.hideViewLoading();
-      CustomersListPresenter.this.showErrorMessage();
-      CustomersListPresenter.this.showViewRetry();
-    }
-
-    @Override public void onNext(List<Customer> customers) {
-      CustomersListPresenter.this.showCustomerListInView(customers);
-    }
   }
 
   private class AlphabetCustomerModelTitleComparator implements Comparator<Customer> {

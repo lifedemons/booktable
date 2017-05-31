@@ -17,14 +17,13 @@ import kotlin.test.assertEquals
 class GetCustomerListTest {
 
     private val mCustomerEntityDataSource: CustomerEntityDataSource = mock()
-    private val mMockScheduler: Scheduler = mock()
 
     private lateinit var mGetCustomersList: GetCustomersList
     private lateinit var mTestSubscriber: TestSubscriber<List<Customer>>
 
     @Before fun setUp() {
         mTestSubscriber = TestSubscriber.create()
-        mGetCustomersList = GetCustomersList(mMockScheduler, mMockScheduler, mCustomerEntityDataSource)
+        mGetCustomersList = GetCustomersList(mCustomerEntityDataSource)
     }
 
     @Test fun `should get particular customer`() {

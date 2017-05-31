@@ -7,6 +7,7 @@ import javax.inject.Singleton;
 import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 
 @Module(library = true, complete = false) public class RxModule {
 
@@ -24,5 +25,9 @@ import rx.schedulers.Schedulers;
 
   @Provides @Singleton @Named(COMPUTATION) Scheduler provideComputationScheduler() {
     return Schedulers.computation();
+  }
+
+  @Provides @Singleton CompositeSubscription provideCompositeSubscription() {
+    return new CompositeSubscription();
   }
 }

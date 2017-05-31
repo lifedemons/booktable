@@ -5,7 +5,6 @@ package com.bookatable.data.datasource
 import com.bookatable.data.datasource.datastore.customer.DatabaseCustomerEntityStore
 import com.bookatable.data.datasource.datastore.customer.ServerCustomerEntityStore
 import com.bookatable.data.entity.Customer
-import com.bookatable.domain.usecases.SimpleSubscriber
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
 import org.junit.Before
@@ -13,6 +12,7 @@ import org.junit.Test
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyZeroInteractions
 import rx.Single.just
+import rx.observers.TestSubscriber
 import java.util.*
 
 class CustomerDataSourceTest {
@@ -21,6 +21,7 @@ class CustomerDataSourceTest {
     private val mServerCustomerEntityStore: ServerCustomerEntityStore = mock()
 
     private lateinit var mCustomerEntityDataSource: CustomerEntityDataSource
+    private lateinit var mTestSubscriber: TestSubscriber<List<Customer>>
 
     companion object {
         private val FAKE_CUSTOMER_ID = 31
@@ -28,6 +29,7 @@ class CustomerDataSourceTest {
 
     @Before fun setUp() {
         mCustomerEntityDataSource = CustomerEntityDataSource(mDatabaseCustomerEntityStore, mServerCustomerEntityStore)
+        mTestSubscriber = TestSubscriber.create()
     }
 
     @Test fun `should query database on getting customers`() {
@@ -36,7 +38,7 @@ class CustomerDataSourceTest {
         assumeDatabaseIsEmpty()
         assumeServerHasRequestedContent(customersList)
 
-        mCustomerEntityDataSource.customers().subscribe(SimpleSubscriber<List<Customer>>())
+        mCustomerEntityDataSource.customers().subscribe(mTestSubscriber)
 
         verify(mDatabaseCustomerEntityStore).queryForAll()
     }
@@ -47,7 +49,7 @@ class CustomerDataSourceTest {
         assumeDatabaseIsEmpty()
         assumeServerHasRequestedContent(customersList)
 
-        mCustomerEntityDataSource.customers().subscribe(SimpleSubscriber<List<Customer>>())
+        mCustomerEntityDataSource.customers().subscribe(mTestSubscriber)
 
         verify(mServerCustomerEntityStore).customerList()
     }
@@ -58,7 +60,7 @@ class CustomerDataSourceTest {
         assumeDatabaseIsEmpty()
         assumeServerHasRequestedContent(customersList)
 
-        mCustomerEntityDataSource.customers().subscribe(SimpleSubscriber<List<Customer>>())
+        mCustomerEntityDataSource.customers().subscribe(mTestSubscriber)
 
         verify(mDatabaseCustomerEntityStore).saveAll(customersList)
     }
