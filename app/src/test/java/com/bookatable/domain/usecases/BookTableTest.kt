@@ -30,19 +30,19 @@ class BookTableTest {
             id = 1
         }
 
-        val customer = Customer().apply {
+        var fakeCustomer = Customer().apply {
             id = 2
         }
 
         val bookedTable = Table().apply {
             id = table.id
             isBooked = true
-            customerId = customer.id
+            customer = fakeCustomer
         }
 
         assumeDataSourceCanUpdateTable()
 
-        mBookTable.call(table, customer).toObservable<Void>().subscribe(mTestSubscriber)
+        mBookTable.call(table, fakeCustomer).toObservable<Void>().subscribe(mTestSubscriber)
 
         verify(mTableEntityDataSource).update(ArrayList<Table>().apply {
             add(bookedTable)

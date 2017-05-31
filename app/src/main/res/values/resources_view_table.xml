@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="view_table_available">Available</string>
+  <string name="view_table_booked">Booked</string>
+
+  <color name="view_table_available">@android:color/holo_green_light</color>
+  <color name="view_table_booked">@android:color/darker_gray</color>
+</resources>

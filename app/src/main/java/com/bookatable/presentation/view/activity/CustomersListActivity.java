@@ -23,7 +23,7 @@ import com.bookatable.presentation.presenter.CustomersListPresenter;
 import com.bookatable.presentation.view.CustomerListView;
 import com.bookatable.presentation.view.adapter.CustomerAdapter;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 import javax.inject.Inject;
 
 public class CustomersListActivity extends DiAppCompatActivity implements CustomerListView {
@@ -44,10 +44,10 @@ public class CustomersListActivity extends DiAppCompatActivity implements Custom
 
   private CheckBox mSortMenuCheckBox;
 
-  private CustomerAdapter mCustomersListAdapter;
+  private CustomerAdapter mCustomerAdapter;
   private CustomerAdapter.OnItemClickListener onItemClickListener = customerModel -> {
-    if (CustomersListActivity.this.mCustomersListPresenter != null && customerModel != null) {
-      CustomersListActivity.this.mCustomersListPresenter.onCustomerClicked(customerModel);
+    if (mCustomersListPresenter != null && customerModel != null) {
+      mCustomersListPresenter.onCustomerClicked(customerModel);
     }
   };
 
@@ -66,13 +66,13 @@ public class CustomersListActivity extends DiAppCompatActivity implements Custom
 
   private void setUpUI() {
     setSupportActionBar(mToolbar);
-    getSupportActionBar().setTitle("");
+    getSupportActionBar().setTitle(getString(R.string.activity_title_customer_list));
 
     mCustomerListView.setLayoutManager(new LinearLayoutManager(this));
 
-    mCustomersListAdapter = new CustomerAdapter(this, new ArrayList<>());
-    mCustomersListAdapter.setOnItemClickListener(onItemClickListener);
-    mCustomerListView.setAdapter(mCustomersListAdapter);
+    mCustomerAdapter = new CustomerAdapter(this, new ArrayList<>());
+    mCustomerAdapter.setOnItemClickListener(onItemClickListener);
+    mCustomerListView.setAdapter(mCustomerAdapter);
 
     mRetryButton.setOnClickListener(v -> onButtonRetryClick());
   }
@@ -173,9 +173,9 @@ public class CustomersListActivity extends DiAppCompatActivity implements Custom
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
   }
 
-  @Override public void renderCustomerList(Collection<Customer> customerModelCollection) {
-    if (customerModelCollection != null) {
-      this.mCustomersListAdapter.setCustomersCollection(customerModelCollection);
+  @Override public void renderCustomerList(List<Customer> customers) {
+    if (customers != null) {
+      mCustomerAdapter.setCustomers(customers);
     }
   }
 
@@ -184,6 +184,6 @@ public class CustomersListActivity extends DiAppCompatActivity implements Custom
   }
 
   @Override public void highlightTextInList(String textToHighlight) {
-    mCustomersListAdapter.highlightText(textToHighlight);
+    mCustomerAdapter.highlightText(textToHighlight);
   }
 }

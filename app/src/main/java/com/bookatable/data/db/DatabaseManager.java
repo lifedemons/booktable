@@ -59,7 +59,7 @@ public class DatabaseManager {
   private void createTableEntityDao() {
     try {
       mTableDao = DaoManager.createDao(mConnectionSource, Table.class);
-      mCustomersDao.setObjectCache(true);
+      mTableDao.setObjectCache(true);
     } catch (SQLException e) {
       Log.wtf(LOG_TAG_DB, "Creation of Dao<" + Table.class + "> failed", e);
     }

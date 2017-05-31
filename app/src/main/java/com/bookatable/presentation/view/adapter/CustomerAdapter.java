@@ -61,8 +61,8 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
     setText(holder.mTextViewLastName, customerModel.getLastName());
 
     holder.itemView.setOnClickListener(v -> {
-      if (CustomerAdapter.this.mOnItemClickListener != null) {
-        CustomerAdapter.this.mOnItemClickListener.onItemClicked(customerModel);
+      if (mOnItemClickListener != null) {
+        mOnItemClickListener.onItemClicked(customerModel);
       }
     });
   }
@@ -81,9 +81,9 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
     return position;
   }
 
-  public void setCustomersCollection(Collection<Customer> customerModelsCollection) {
+  public void setCustomers(List<Customer> customerModelsCollection) {
     validateCustomersCollection(customerModelsCollection);
-    mCustomersList = (List<Customer>) customerModelsCollection;
+    mCustomersList = customerModelsCollection;
     notifyDataSetChanged();
   }
 

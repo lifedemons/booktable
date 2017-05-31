@@ -20,10 +20,6 @@ class ServerTableEntityStoreTest {
     private lateinit var mServerTableEntityStore: ServerTableEntityStore
     private lateinit var mTestSubscriber: TestSubscriber<List<Table>>
 
-    companion object {
-        private val FAKE_CUSTOMER_ID = 31
-    }
-
     @Before fun setUp() {
         mServerTableEntityStore = ServerTableEntityStore(mRestService)
         mTestSubscriber = TestSubscriber.create()
@@ -38,16 +34,17 @@ class ServerTableEntityStoreTest {
     }
 
     private fun assumeServerHasTables() {
-        whenever(mRestService.tables).thenReturn(just(createTablesList()))
+        whenever(mRestService.tables).thenReturn(just(createTablesBooleansList()))
     }
 
-    private fun createTablesList() = (0..29).mapTo(ArrayList<Table>(30)) {
-        Table()
+    private fun createTablesBooleansList() = (0..29).mapTo(ArrayList<Boolean>(30)) {
+        false
     }
 
     private fun createTablesWithIdsList() = (0..29).mapTo(ArrayList<Table>(30)) {
         Table().apply {
             id = it
+            isBooked = false
         }
     }
 }

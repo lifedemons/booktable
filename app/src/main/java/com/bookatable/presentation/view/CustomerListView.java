@@ -7,6 +7,7 @@ package com.bookatable.presentation.view;
 
 import com.bookatable.data.entity.Customer;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Interface representing a View in a model view presenter (MVP) pattern.
@@ -16,9 +17,9 @@ public interface CustomerListView extends LoadDataView {
   /**
    * Render a customer list in the UI.
    *
-   * @param customerModelCollection The collection of {@link Customer} that will be shown.
+   * @param customers The list of {@link Customer} that will be shown.
    */
-  void renderCustomerList(Collection<Customer> customerModelCollection);
+  void renderCustomerList(List<Customer> customers);
 
   /**
    * View a {@link Customer} profile/details.

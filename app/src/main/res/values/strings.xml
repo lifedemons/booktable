@@ -2,8 +2,8 @@
 <resources>
   <string name="app_name">Book A Table</string>
 
-  <string name="activity_title_customer_list">Customers List</string>
-  <string name="activity_title_customer_details">Customer Details</string>
+  <string name="activity_title_customer_list">Choose Customer</string>
+  <string name="activity_title_book_table">Choose Table</string>
 
   <string name="btn_text_load_data">Load Sample Data</string>
   <string name="btn_text_retry">Retry</string>

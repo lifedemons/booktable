@@ -27,7 +27,7 @@ public class TableEntityDataSource implements TableDataSource {
   }
 
   @Override public Completable update(List<Table> table) {
-    return null;
+    return mDatabaseTableEntityStore.saveAll(table);
   }
 
   private Single<List<Table>> queryDatabaseForAll() {

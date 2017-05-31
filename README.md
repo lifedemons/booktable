@@ -1,5 +1,4 @@
-# Customer Viewer Sample
-This is the sample of Clean Architecture in Real Conditions
+# Book a Table Sample
 
 This project has been influenced by:
 
@@ -17,9 +16,9 @@ This project has been influenced by:
 
 ***DI:*** Dagger/Butterknife
 
-***Persistency:*** DB: ORMLite, Preferences: Own PreferenceDAO 
+***Persistency:*** DB: ORMLite
 
-***Networking:*** Retrofit, Picasso, OkHttp
+***Networking:*** Retrofit, OkHttp
 
 ***Asynchronous programming:*** RxJava
 
@@ -33,4 +32,4 @@ This project has been influenced by:
 
 **2. Next steps:**
 
-a. Integrate with Flickr + more functions
+a. Better UI

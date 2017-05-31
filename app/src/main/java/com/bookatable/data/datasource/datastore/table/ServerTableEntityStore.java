@@ -2,6 +2,7 @@ package com.bookatable.data.datasource.datastore.table;
 
 import com.bookatable.data.entity.Table;
 import com.bookatable.data.network.TablesRestService;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Single;
@@ -22,9 +23,14 @@ public class ServerTableEntityStore {
     return mService.getTables().map(this::assignIds).toSingle();
   }
 
-  private List<Table> assignIds(List<Table> tableEntities) {
-    for (int i = 0; i < tableEntities.size(); i++) {
-      tableEntities.get(i).setId(i);
+  private List<Table> assignIds(List<Boolean> booleanBookedTablesArray) {
+    List<Table> tableEntities = new ArrayList<>(booleanBookedTablesArray.size());
+
+    for (int i = 0; i < booleanBookedTablesArray.size(); i++) {
+      Table table = new Table();
+      table.setId(i);
+      table.setIsBooked(booleanBookedTablesArray.get(i));
+      tableEntities.add(table);
     }
 
     return tableEntities;

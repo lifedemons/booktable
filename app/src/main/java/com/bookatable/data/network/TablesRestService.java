@@ -12,5 +12,5 @@ public interface TablesRestService {
   /**
    * Retrieves an {@link rx.Observable} which will emit a List of {@link Table}.
    */
-  @GET("quandoo-assessment/table-map.json") Observable<List<Table>> getTables();
+  @GET("quandoo-assessment/table-map.json") Observable<List<Boolean>> getTables();
 }

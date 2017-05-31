@@ -21,8 +21,8 @@
         </activity>
 
         <activity
-            android:name="com.bookatable.presentation.view.activity.CustomerDetailsActivity"
-            android:label="@string/activity_title_customer_details">
+            android:name="com.bookatable.presentation.view.activity.BookTableActivity"
+            android:label="@string/activity_title_book_table">
         </activity>
     </application>
 </manifest>

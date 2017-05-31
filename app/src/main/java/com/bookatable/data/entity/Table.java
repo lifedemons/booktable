@@ -11,18 +11,18 @@ import lombok.experimental.Accessors;
  */
 @Data @Accessors(prefix = "m") @DatabaseTable(tableName = "tables")
 public class Table {
-  @SerializedName(Fields.ID) @DatabaseField(id = true, columnName = Fields.ID)
+  @DatabaseField(id = true, columnName = Fields.ID)
   private Integer mId;
 
   @SerializedName(Fields.IS_BOOKED) @DatabaseField(columnName = Fields.IS_BOOKED)
   private Boolean mIsBooked;
 
-  @SerializedName(Fields.CUSTOMER_ID) @DatabaseField(columnName = Fields.CUSTOMER_ID)
-  private Integer mCustomerId;
+  @DatabaseField(columnName = Fields.CUSTOMER, foreign = true)
+  private Customer mCustomer;
 
   interface Fields {
     String ID = "id";
     String IS_BOOKED = "isBooked";
-    String CUSTOMER_ID = "customerId";
+    String CUSTOMER = "customer";
   }
 }

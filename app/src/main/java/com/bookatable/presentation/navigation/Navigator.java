@@ -2,7 +2,7 @@ package com.bookatable.presentation.navigation;
 
 import android.content.Context;
 import android.content.Intent;
-import com.bookatable.presentation.view.activity.CustomerDetailsActivity;
+import com.bookatable.presentation.view.activity.BookTableActivity;
 import javax.inject.Inject;
 
 /**
@@ -20,7 +20,7 @@ public class Navigator {
    */
   public void navigateToCustomerDetails(Context context, int customerId) {
     if (context != null) {
-      Intent intentToLaunch = CustomerDetailsActivity.getCallingIntent(context, customerId);
+      Intent intentToLaunch = BookTableActivity.getCallingIntent(context, customerId);
       context.startActivity(intentToLaunch);
     }
   }
